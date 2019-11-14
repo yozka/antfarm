@@ -1,44 +1,68 @@
 #include "aaFormicarium.h"
 
+
+
+///-------------------------------------------------------------------------
 using namespace Formicarium;
+///-------------------------------------------------------------------------
 
 
 
-AFormicarium::AFormicarium(const int width, const int height)
+
+
+ ///------------------------------------------------------------------------
+///
+///
+///
+/// Constructor
+///
+///
+///-------------------------------------------------------------------------
+AFormicarium :: AFormicarium(const int width, const int height)
 	:
-	mSize		({ width, height }),
-	mWorld		(mSize),
+	world(std::make_shared < Formicarium::AWorld > (TPoint(width, height)))
 
-	world		(mWorld)
 {
 
 
 
 
 }
+///-------------------------------------------------------------------------
 
 
 
-AFormicarium::~AFormicarium()
+
+
+ ///------------------------------------------------------------------------
+///
+///
+///
+/// Destructor
+///
+///
+///-------------------------------------------------------------------------
+AFormicarium :: ~AFormicarium()
 {
 
 
 }
-
-
-void AFormicarium :: append(const PActor &actor)
-{
-	mActors.push_back(actor);
-}
+///-------------------------------------------------------------------------
 
 
 
 
+
+ ///------------------------------------------------------------------------
+///
+///
+///
+/// Update 
+///
+///
+///-------------------------------------------------------------------------
 void AFormicarium :: update(const float timeSpan)
 {
-	for (const auto &actor : mActors)
-	{
-		actor->update(timeSpan);
-	}
+	world->update(timeSpan);
 
 }

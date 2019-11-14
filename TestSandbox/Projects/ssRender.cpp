@@ -19,8 +19,8 @@ void ARender::draw(const Formicarium::PFormicarium &formicarium)
 	//
 
 	
-	const auto width	= formicarium->width();
-	const auto height	= formicarium->height();
+	const auto width	= formicarium->world->size.x;
+	const auto height	= formicarium->world->size.y;
 
 	const int pixWidth = width * scale;
 	const int pixHeight = height * scale;
@@ -43,7 +43,7 @@ void ARender::draw(const Formicarium::PFormicarium &formicarium)
 	for (int y = 0; y < height; y++)
 		for (int x = 0; x < width; x++)
 		{
-			const auto &data = formicarium->world.ground.data(x, y);
+			const auto &data = formicarium->world->ground.data(x, y);
 			if (data.ground)
 			{
 				QRectF rect(scale * x, scale * y, scale, scale);
@@ -54,7 +54,7 @@ void ARender::draw(const Formicarium::PFormicarium &formicarium)
 
 	//отрисовываем букашек
 	QColor colorInsect(70, 101, 119);
-	for (const auto &actor : formicarium->actors())
+	for (const auto &actor : formicarium->world->actors())
 	{
 		painter.save();
 

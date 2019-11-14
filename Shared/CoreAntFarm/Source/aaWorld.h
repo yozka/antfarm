@@ -1,52 +1,91 @@
 #pragma once
 #include <memory>
-#include <list>
+#include <vector>
 
 #include "aaPoint.h"
 #include "aaLayer.h"
 #include "aaCellGround.h"
+#include "aaActor.h"
 
 
 namespace Formicarium
 {
+	///-------------------------------------------------------------------------
 
 
 
 
 
+	 ///------------------------------------------------------------------------
+	///
+	///
+	///
+	/// Мир муровьев
+	///
+	///
+	///-------------------------------------------------------------------------
 	class AWorld
+		:
+			public std::enable_shared_from_this<AWorld>
+
 	{
 	public:
+	///-------------------------------------------------------------------------
+		using ALayerGround = ALayer< ACellGround >;
 
-		using AGround = ALayer< ACellGround >;
 
-
-
+	///-------------------------------------------------------------------------
 	public:
 
 		AWorld(const TPoint &size);
 		virtual ~AWorld();
 
 
+	///-------------------------------------------------------------------------
 	public:
 
 
-		AGround& ground;
+		const TPoint size;
 
 
-	
+		ALayerGround& ground; //доступ к земле
 
 
+
+	///-------------------------------------------------------------------------
+	public:
+
+
+		void update(const float timeSpan);
+
+
+
+	///-------------------------------------------------------------------------
+	public:
+
+
+		std::vector<PActor>& actors() { return mActors; }
+
+		void append(const PActor &actor); //добавление 
+		void remove(const PActor &actor); //удаление
+
+
+	///-------------------------------------------------------------------------
+	///-------------------------------------------------------------------------
 	private:
 
 
+		ALayerGround mGround;	//земля
 
 
-		AGround mGround;
+		std::vector<PActor>	mActors;
 
 	};
+	///-------------------------------------------------------------------------
 
 
+	using PWorld = std::shared_ptr< AWorld >;
 
+	///-------------------------------------------------------------------------
 
 }
