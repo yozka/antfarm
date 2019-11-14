@@ -1,0 +1,96 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source">
+      <UniqueIdentifier>{103815f2-0fb2-4f56-9a77-cba274cec754}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Formicarium">
+      <UniqueIdentifier>{8e1291c1-f72e-4566-9d4d-ec355a197623}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Insect">
+      <UniqueIdentifier>{f7f16cdd-5f92-455f-900d-1fa264f135e7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Utils">
+      <UniqueIdentifier>{011d6404-fe98-40cf-a27b-52136b7cfcc9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Utils\Point">
+      <UniqueIdentifier>{974df1d2-f9da-4ea3-895a-405693cdd2cd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\World">
+      <UniqueIdentifier>{8b7b5769-e8aa-406d-9025-baef88e4fc8d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\World\Layer">
+      <UniqueIdentifier>{0635ace1-36e1-452b-9a28-eab98ef5ec20}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\World\Layer\Ground">
+      <UniqueIdentifier>{39af1150-b3e9-4afc-89fe-fbf67283133c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Actor">
+      <UniqueIdentifier>{cade325b-8b16-40b3-9312-0b32377ab94f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Actor\ActorComponent">
+      <UniqueIdentifier>{885bd858-d5a9-44f8-ac7c-e937070f8808}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Environment">
+      <UniqueIdentifier>{d3393d01-d243-401b-9c8b-89ffb059b44d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Environment\WaterOrigin">
+      <UniqueIdentifier>{10525e37-1502-4867-90c7-2cd239dba3cc}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="$(MSBuildThisFileDirectory)CoreAntFarm.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Source\aaInsect.h">
+      <Filter>Source\Insect</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Source\aaFormicarium.h">
+      <Filter>Source\Formicarium</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Source\aaCellGround.h">
+      <Filter>Source\World\Layer\Ground</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Source\aaLayer.h">
+      <Filter>Source\World\Layer</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Source\aaPoint.h">
+      <Filter>Source\Utils\Point</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Source\aaWorld.h">
+      <Filter>Source\World</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Source\aaActor.h">
+      <Filter>Source\Actor</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Source\aaActorComponent.h">
+      <Filter>Source\Actor\ActorComponent</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Source\aaWaterOrigin.h">
+      <Filter>Source\Environment\WaterOrigin</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Source\aaInsect.cpp">
+      <Filter>Source\Insect</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Source\aaFormicarium.cpp">
+      <Filter>Source\Formicarium</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Source\aaCellGround.cpp">
+      <Filter>Source\World\Layer\Ground</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Source\aaWorld.cpp">
+      <Filter>Source\World</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Source\aaActor.cpp">
+      <Filter>Source\Actor</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Source\aaActorComponent.cpp">
+      <Filter>Source\Actor\ActorComponent</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Source\aaWaterOrigin.cpp">
+      <Filter>Source\Environment\WaterOrigin</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

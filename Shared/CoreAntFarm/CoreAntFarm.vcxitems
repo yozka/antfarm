@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup Label="Globals">
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <ItemsProjectGuid>{d44a16c9-0ee1-4028-8c1b-8954a22c759e}</ItemsProjectGuid>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);$(MSBuildThisFileDirectory)</AdditionalIncludeDirectories>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ProjectCapability Include="SourceItemsFromImports" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="$(MSBuildThisFileDirectory)CoreAntFarm.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Source\aaActor.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Source\aaActorComponent.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Source\aaCellGround.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Source\aaFormicarium.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Source\aaInsect.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Source\aaLayer.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Source\aaPoint.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Source\aaWaterOrigin.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Source\aaWorld.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Source\aaActor.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Source\aaActorComponent.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Source\aaCellGround.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Source\aaFormicarium.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Source\aaInsect.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Source\aaWaterOrigin.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Source\aaWorld.cpp" />
+  </ItemGroup>
+</Project>
