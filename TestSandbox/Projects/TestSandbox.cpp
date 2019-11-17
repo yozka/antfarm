@@ -40,7 +40,7 @@ TestSandbox::TestSandbox(QWidget *parent)
 		}
 
 	roomRect(mFormicarium->world, 50, 35, 20, 10);
-
+	roomRect(mFormicarium->world, 30, 60, 10, 30);
 
 	//ху€рим букашек
 	auto actor = std::make_shared<Formicarium::AActor>();
@@ -51,7 +51,8 @@ TestSandbox::TestSandbox(QWidget *parent)
 	//ху€рим источник влаги
 	auto aqua = std::make_shared<Formicarium::AActor>();
 	aqua->append(std::make_shared<Formicarium::AWaterOrigin>());
-	aqua->setPosition({ 30, 60 });
+	aqua->setPosition({ 30, 55 });
+	aqua->setSize(0.5f);
 	mFormicarium->world->append(aqua);
 
 

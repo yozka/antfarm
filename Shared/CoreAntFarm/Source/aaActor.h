@@ -67,7 +67,7 @@ namespace Formicarium
 
 		std::weak_ptr<AWorld> mWorld;
 
-		TPointF mSize		= { 1.0f};
+		TPointF mSize		= { 1.0f };
 		TPointF mPosition	= { 0.0f };
 		float	mAngle		= { 0.0f };
 

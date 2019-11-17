@@ -38,18 +38,37 @@ void ARender::draw(const Formicarium::PFormicarium &formicarium)
 
 
 	//отрисовываем землю
+	//воду
+	const float shift = -scale * 0.5f;
 	QColor colorGround(255, 134, 129);
-
+	QColor colorWater(96, 172, 247);
 	for (int y = 0; y < height; y++)
 		for (int x = 0; x < width; x++)
 		{
-			const auto &data = formicarium->world->ground.data(x, y);
-			if (data.ground)
+			
+			//земля
+			const auto &ground = formicarium->world->ground.data(x, y);
+			if (ground.ground)
 			{
-				QRectF rect(scale * x, scale * y, scale, scale);
+				QRectF rect(scale * x + shift, scale * y + shift, scale, scale);
 				painter.fillRect(rect, colorGround);
 			}
+
+			//вода
+			const auto &water = formicarium->world->water(x, y);
+			if (water.water)
+			{
+				const auto volume = scale * water.waterVolume;
+				QRectF rect(scale * x + shift, (scale * y + shift) + scale - volume, scale, volume);
+				painter.fillRect(rect, colorWater);
+			}
+
+
 		}
+
+
+	//
+
 
 
 	//отрисовываем букашек

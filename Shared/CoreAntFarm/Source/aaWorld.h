@@ -5,6 +5,8 @@
 #include "aaPoint.h"
 #include "aaLayer.h"
 #include "aaCellGround.h"
+#include "aaCellTemperature.h"
+#include "aaCellWater.h"
 #include "aaActor.h"
 
 
@@ -31,8 +33,9 @@ namespace Formicarium
 	{
 	public:
 	///-------------------------------------------------------------------------
-		using ALayerGround = ALayer< ACellGround >;
-
+		using ALayerGround			= ALayer< ACellGround >;
+		using ALayerTemperature		= ALayer< ACellTemperature >;
+		using ALayerWater			= ALayer< ACellWater >;
 
 	///-------------------------------------------------------------------------
 	public:
@@ -48,8 +51,9 @@ namespace Formicarium
 		const TPoint size;
 
 
-		ALayerGround& ground; //доступ к земле
-
+		ALayerGround		&ground;		//доступ к земле
+		ALayerTemperature	&temperature;	//распостранение температуры
+		ALayerWater			&water;			//распостранения воды
 
 
 	///-------------------------------------------------------------------------
@@ -75,7 +79,9 @@ namespace Formicarium
 	private:
 
 
-		ALayerGround mGround;	//земля
+		ALayerGround		mGround;	//земля
+		ALayerTemperature	mTemperature;
+		ALayerWater			mWater;
 
 
 		std::vector<PActor>	mActors;

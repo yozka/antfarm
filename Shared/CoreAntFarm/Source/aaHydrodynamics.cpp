@@ -1,8 +1,4 @@
-#include "aaWaterOrigin.h"
-#include "aaActor.h"
-#include "aaWorld.h"
-///-------------------------------------------------------------------------
-
+#include "aaHydrodynamics.h"
 
 
 
@@ -22,9 +18,10 @@ using namespace Formicarium;
 ///
 ///
 ///-------------------------------------------------------------------------
-AWaterOrigin::AWaterOrigin()
+AHydrodynamics::AHydrodynamics(const PWorld &world)
+	:	
+		mWorld(world)
 {
-
 
 
 
@@ -44,7 +41,7 @@ AWaterOrigin::AWaterOrigin()
 ///
 ///
 ///-------------------------------------------------------------------------
-AWaterOrigin::~AWaterOrigin()
+AHydrodynamics :: ~AHydrodynamics()
 {
 
 
@@ -59,31 +56,37 @@ AWaterOrigin::~AWaterOrigin()
 ///
 ///
 ///
-/// Обновление
+/// Update 
 ///
 ///
 ///-------------------------------------------------------------------------
-void AWaterOrigin :: update(const float timeSpan)
+void AHydrodynamics::update(const float timeSpan)
 {
-	const auto parent = actor();
-	if (!parent)
-	{
-		return;
-	}
-	const auto world = parent->world();
-	if (!world)
-	{
-		return;
-	}
-	//
+	auto &water		= mWorld->water;
+	auto &ground	= mWorld->ground;
 
-	const auto size = parent->size();
-	const auto pt = parent->position();// -size * 0.5f;
+	const auto width	= mWorld->size.x;
+	const auto height	= mWorld->size.y;
 
-	auto &water = world->water(pt.x, pt.y);
+	//просчет падение воды
+	for (int y = height - 2; y >= 0; y--)
+		for (int x = 0; x < width; x++)
+		{
+			auto &waterUp	= water(x, y);
+			if (waterUp.water)
+			{
+				//в текущей клетке есть вода
+				const auto &groundDown	= ground(x, y + 1);
+				auto &waterDown			= water(x, y + 1);
 
-	const float factor = 1.0f / mFlowTimeMS;
-	water.appendWater(factor * timeSpan);
+				if (!groundDown.ground && !waterDown.isWaterFull())
+				{
+					//внизу нет земли, вода может туда лится
+					waterUp.waterMoveTo(timeSpan, waterDown);
+				}
+			}
+		}
+
+
 
 }
-

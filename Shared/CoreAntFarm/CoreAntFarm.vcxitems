@@ -17,10 +17,12 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)CoreAntFarm.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Source\aaActor.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Source\aaActorComponent.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Source\aaAlgo.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Source\aaCellGround.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Source\aaCellTemperature.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Source\aaCellWater.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Source\aaFormicarium.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Source\aaHydrodynamics.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Source\aaInsect.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Source\aaLayer.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Source\aaPoint.h" />
@@ -34,6 +36,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)Source\aaCellTemperature.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Source\aaCellWater.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Source\aaFormicarium.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Source\aaHydrodynamics.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Source\aaInsect.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Source\aaWaterOrigin.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Source\aaWorld.cpp" />

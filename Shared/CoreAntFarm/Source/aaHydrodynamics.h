@@ -1,9 +1,8 @@
 #pragma once
 #include <memory>
 
-#include "aaPoint.h"
 #include "aaWorld.h"
-#include "aaHydrodynamics.h"
+
 
 namespace Formicarium
 {
@@ -17,25 +16,24 @@ namespace Formicarium
 	///
 	///
 	///
-	/// Муровейник со всеми штуками
+	/// Гидродинамика
 	///
 	///
 	///-------------------------------------------------------------------------
-	class AFormicarium
+	class AHydrodynamics
 	{
 	public:
 
-		
 
-		AFormicarium(const int width, const int height);
-		virtual ~AFormicarium();
+
+		AHydrodynamics(const PWorld &world);
+		virtual ~AHydrodynamics();
 
 
 	public:
 
 
-		const PWorld world;
-
+	
 
 
 	public:
@@ -50,7 +48,7 @@ namespace Formicarium
 
 
 
-		AHydrodynamics mHydrodynamics;
+		PWorld mWorld;
 
 
 
@@ -59,7 +57,7 @@ namespace Formicarium
 
 
 
-	using PFormicarium = std::shared_ptr< AFormicarium >;
+	using PHydrodynamics = std::shared_ptr< AHydrodynamics >;
 
 
 	///-------------------------------------------------------------------------

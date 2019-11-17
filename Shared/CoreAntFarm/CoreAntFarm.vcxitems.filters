@@ -43,6 +43,15 @@
     <Filter Include="Source\World\Layer\Temperature">
       <UniqueIdentifier>{07bcfb89-45d1-46f2-abfd-83e02af2aadc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Utils\Algo">
+      <UniqueIdentifier>{3a492fcf-0930-43db-a9e0-6e560723dd4f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Physics">
+      <UniqueIdentifier>{9fb4a724-0d90-4fd3-a352-dcf18e013680}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Physics\Hydrodynamics">
+      <UniqueIdentifier>{84a87dba-2485-4be9-b84d-dd9bc8e89027}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)CoreAntFarm.h">
@@ -81,6 +90,12 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Source\aaCellWater.h">
       <Filter>Source\World\Layer\Water</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Source\aaAlgo.h">
+      <Filter>Source\Utils\Algo</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Source\aaHydrodynamics.h">
+      <Filter>Source\Physics\Hydrodynamics</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)Source\aaInsect.cpp">
@@ -109,6 +124,9 @@
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)Source\aaCellWater.cpp">
       <Filter>Source\World\Layer\Water</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Source\aaHydrodynamics.cpp">
+      <Filter>Source\Physics\Hydrodynamics</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

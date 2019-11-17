@@ -17,11 +17,15 @@ using namespace Formicarium;
 ///-------------------------------------------------------------------------
 AWorld :: AWorld(const TPoint &size)
 	:
-	size		(size),
-	mGround		(size),
+	size			(size),
+	mGround			(size),
+	mTemperature	(size),
+	mWater			(size),
 
 
-	ground		(mGround)
+	ground			(mGround),
+	temperature		(mTemperature),
+	water			(mWater)
 {
 
 	
