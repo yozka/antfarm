@@ -58,11 +58,21 @@ void ARender::draw(const Formicarium::PFormicarium &formicarium)
 			const auto &water = formicarium->world->water(x, y);
 			if (water.water)
 			{
-				const auto volume = scale * water.waterVolume;
-				QRectF rect(scale * x + shift, (scale * y + shift) + scale - volume, scale, volume);
-				painter.fillRect(rect, colorWater);
-			}
+				const auto volumeUp = scale * water.waterVolumeUp;
+				if (volumeUp > 0)
+				{
+					QRectF rectUp(scale * x + shift, (scale * y + shift), scale, volumeUp);
+					painter.fillRect(rectUp, colorWater);
+				}
 
+				const auto volumeDown = scale * water.waterVolumeDown;
+				if (volumeDown > 0)
+				{
+					QRectF rectDown(scale * x + shift, (scale * y + shift) + scale - volumeDown, scale, volumeDown);
+					painter.fillRect(rectDown, colorWater);
+				}
+			}
+			//
 
 		}
 

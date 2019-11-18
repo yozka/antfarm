@@ -62,6 +62,8 @@ AHydrodynamics :: ~AHydrodynamics()
 ///-------------------------------------------------------------------------
 void AHydrodynamics::update(const float timeSpan)
 {
+	float volume = (1.0f / mSpeedFluidVertical) * timeSpan;
+
 	auto &water		= mWorld->water;
 	auto &ground	= mWorld->ground;
 
@@ -72,17 +74,17 @@ void AHydrodynamics::update(const float timeSpan)
 	for (int y = height - 2; y >= 0; y--)
 		for (int x = 0; x < width; x++)
 		{
-			auto &waterUp	= water(x, y);
-			if (waterUp.water)
+			auto &waterTop	= water(x, y);
+			if (waterTop.water && waterTop.waterVolumeDown > 0)
 			{
 				//в текущей клетке есть вода
-				const auto &groundDown	= ground(x, y + 1);
-				auto &waterDown			= water(x, y + 1);
+				const auto &groundBottom	= ground(x, y + 1);
+				auto &waterBottom			= water(x, y + 1);
 
-				if (!groundDown.ground && !waterDown.isWaterFull())
+				if (!groundBottom.ground && !waterBottom.waterFull)
 				{
 					//внизу нет земли, вода может туда лится
-					waterUp.waterMoveTo(timeSpan, waterDown);
+					waterBottom.appendWaterUp(waterTop.takeWaterDown(volume));
 				}
 			}
 		}

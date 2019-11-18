@@ -34,7 +34,7 @@ namespace Formicarium
 
 	private:
 
-		float mFlowTimeMS = { 5000 }; //время заполнения в мс
+		float mFlowTimeMS = { 1000 }; //время заполнения в мс
 
 
 	};

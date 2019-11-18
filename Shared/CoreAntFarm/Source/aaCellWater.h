@@ -43,10 +43,9 @@ namespace Formicarium
 		void appendWaterUp		(const float volume); //увелечение количества воды вверху от 0..1
 		void appendWaterDown	(const float volume); //увелечение количества воды снизу
 
+		float takeWaterDown		(const float volume); //уменьшить воду снизу
 
-		void waterMoveTo(const float timeMS, ACellWater &dest);
-
-
+	
 	private:
 
 		void normalizeWater(); //нормализация воды

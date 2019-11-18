@@ -62,13 +62,15 @@ ACellWater::~ACellWater()
 ///
 ///
 ///-------------------------------------------------------------------------
-void ACellWater :: appendWater(const float volume)
+void ACellWater :: appendWaterUp(const float volume)
 {
-	water = true;
-	waterVolume += volume;
-	waterVolume = minmaxBound<float>(0.0f, 1.0f, waterVolume);
+	waterVolumeUp += volume;
+	normalizeWater();
 }
 ///-------------------------------------------------------------------------
+
+
+
 
 
 
@@ -78,28 +80,89 @@ void ACellWater :: appendWater(const float volume)
 ///
 ///
 ///
-/// проверим, клетка полной воды или нет
+/// увелечение количества воды от 0..1
 ///
 ///
 ///-------------------------------------------------------------------------
-bool ACellWater::isWaterFull() const
+void ACellWater::appendWaterDown(const float volume)
 {
-	return waterVolume >= 0.9999f ? true : false;
+	waterVolumeDown += volume;
+	normalizeWater();
 }
+///-------------------------------------------------------------------------
 
 
 
 
-void ACellWater::waterMoveTo(const float timeMS, ACellWater &dest)
+
+
+
+
+
+
+ ///------------------------------------------------------------------------
+///
+///
+///
+/// нормализация уровня воды
+///
+///
+///-------------------------------------------------------------------------
+void ACellWater :: normalizeWater()
 {
-	float volume = (1.0f / 1000.0f) * timeMS;
+	waterVolumeUp	= minmaxBound<float>(0.0f, 1.0f, waterVolumeUp);
+	waterVolumeDown = minmaxBound<float>(0.0f, 1.0f, waterVolumeDown);
 
-	waterVolume -= volume;
-	if (waterVolume <= 0)
+	const auto volume = waterVolumeUp + waterVolumeDown;
+	if (volume < 0.0001)
 	{
-		volume += waterVolume;
-		waterVolume = 0;
 		water = false;
+		waterFull = false;
+		waterVolumeUp = 0;
+		waterVolumeDown = 0;
+		return;
 	}
-	dest.appendWater(volume);
+
+	water = true;
+	if (volume > 0.9999f)
+	{
+		waterFull = true;
+		waterVolumeUp = 0.0f;
+		waterVolumeDown = 1.0f;
+		return;
+	}
+
+	waterFull = false;
+
+}
+///-------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+ ///------------------------------------------------------------------------
+///
+///
+///
+/// уменьшить воду снизу
+///
+///
+///-------------------------------------------------------------------------
+float ACellWater::takeWaterDown(const float volume)
+{
+	float vol = volume;
+	waterVolumeDown -= vol;
+	if (waterVolumeDown <= 0)
+	{
+		vol += waterVolumeDown;
+		waterVolumeDown = 0;
+	}
+	normalizeWater();
+	return vol;
 }

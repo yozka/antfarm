@@ -83,7 +83,7 @@ void AWaterOrigin :: update(const float timeSpan)
 	auto &water = world->water(pt.x, pt.y);
 
 	const float factor = 1.0f / mFlowTimeMS;
-	water.appendWater(factor * timeSpan);
+	water.appendWaterUp(factor * timeSpan);
 
 }
 
