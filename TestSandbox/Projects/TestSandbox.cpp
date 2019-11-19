@@ -15,6 +15,7 @@ void roomRect(const Formicarium::PWorld &world, const int x, const int y, const 
 
 }
 
+const int timerSpeed = 100;
 
 TestSandbox::TestSandbox(QWidget *parent)
 	: 
@@ -56,7 +57,7 @@ TestSandbox::TestSandbox(QWidget *parent)
 	mFormicarium->world->append(aqua);
 
 
-	startTimer(100);
+	startTimer(timerSpeed);
 }
 
 
@@ -66,7 +67,7 @@ TestSandbox::TestSandbox(QWidget *parent)
 
 void TestSandbox::timerEvent(QTimerEvent * event)
 {
-	mFormicarium->update(100);
+	mFormicarium->update(timerSpeed);
 
 	mRender.draw(mFormicarium);
 	ui.canvas->setPixmap(mRender.pixmap);

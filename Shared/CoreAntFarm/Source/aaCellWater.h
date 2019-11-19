@@ -30,25 +30,24 @@ namespace Formicarium
 
 
 
-
-		bool	water			= { false };	//признак того что здесь находится вода
-		
-		bool	waterFull		= { false };	//признак полной заполненности водой
-		float	waterVolumeUp	= { 0.0f };		//количество воды сверху от 0..1
-		float	waterVolumeDown = { 0.0f };		//количество воды снизу
-
+        bool isWater() const; //проверка вода есть или нет
+        bool isWaterFluid() const; //проверка вода есть, и она уже закончила движение
 
 	public:
 
-		void appendWaterUp		(const float volume); //увелечение количества воды вверху от 0..1
-		void appendWaterDown	(const float volume); //увелечение количества воды снизу
+		void makeWater(); //установка воды
+        void takeWater(); //уберание воды
+        bool waterFluid(const float volume); //процесс перетекание воды, если вода перетекла то возвращаем true
 
-		float takeWaterDown		(const float volume); //уменьшить воду снизу
+    private:
+
+        bool	mWater          = { false };	//признак того что здесь находится вода
+        float	mWaterFluid     = { 0.0f };		//перетикание воды, время за которое заполнится вода, и его нужно дальшое обрабатывать
+
+
 
 	
-	private:
 
-		void normalizeWater(); //нормализация воды
 
 
 	};

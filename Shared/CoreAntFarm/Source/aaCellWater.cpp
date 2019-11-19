@@ -58,14 +58,14 @@ ACellWater::~ACellWater()
 ///
 ///
 ///
-/// увелечение количества воды от 0..1
+/// установка воды
 ///
 ///
 ///-------------------------------------------------------------------------
-void ACellWater :: appendWaterUp(const float volume)
+void ACellWater :: makeWater()
 {
-	waterVolumeUp += volume;
-	normalizeWater();
+    mWater = true;
+    mWaterFluid = 1.0f;
 }
 ///-------------------------------------------------------------------------
 
@@ -80,60 +80,14 @@ void ACellWater :: appendWaterUp(const float volume)
 ///
 ///
 ///
-/// увелечение количества воды от 0..1
+/// 
 ///
 ///
 ///-------------------------------------------------------------------------
-void ACellWater::appendWaterDown(const float volume)
+void ACellWater :: takeWater()
 {
-	waterVolumeDown += volume;
-	normalizeWater();
-}
-///-------------------------------------------------------------------------
-
-
-
-
-
-
-
-
-
-
- ///------------------------------------------------------------------------
-///
-///
-///
-/// нормализация уровня воды
-///
-///
-///-------------------------------------------------------------------------
-void ACellWater :: normalizeWater()
-{
-	waterVolumeUp	= minmaxBound<float>(0.0f, 1.0f, waterVolumeUp);
-	waterVolumeDown = minmaxBound<float>(0.0f, 1.0f, waterVolumeDown);
-
-	const auto volume = waterVolumeUp + waterVolumeDown;
-	if (volume < 0.0001)
-	{
-		water = false;
-		waterFull = false;
-		waterVolumeUp = 0;
-		waterVolumeDown = 0;
-		return;
-	}
-
-	water = true;
-	if (volume > 0.9999f)
-	{
-		waterFull = true;
-		waterVolumeUp = 0.0f;
-		waterVolumeDown = 1.0f;
-		return;
-	}
-
-	waterFull = false;
-
+    mWater = false;
+    mWaterFluid = 1.0f;
 }
 ///-------------------------------------------------------------------------
 
@@ -150,19 +104,58 @@ void ACellWater :: normalizeWater()
 ///
 ///
 ///
-/// уменьшить воду снизу
+/// проверка вода есть или нет
 ///
 ///
 ///-------------------------------------------------------------------------
-float ACellWater::takeWaterDown(const float volume)
+bool ACellWater :: isWater() const
 {
-	float vol = volume;
-	waterVolumeDown -= vol;
-	if (waterVolumeDown <= 0)
-	{
-		vol += waterVolumeDown;
-		waterVolumeDown = 0;
-	}
-	normalizeWater();
-	return vol;
+    return mWater;
+}
+///-------------------------------------------------------------------------
+
+
+
+
+
+ ///------------------------------------------------------------------------
+///
+///
+///
+/// проверка вода есть, и она уже закончила движение
+///
+///
+///-------------------------------------------------------------------------
+bool ACellWater::isWaterFluid() const
+{
+    return mWater && mWaterFluid < 0.0f;
+}
+///-------------------------------------------------------------------------
+
+
+
+
+
+
+ ///------------------------------------------------------------------------
+///
+///
+///
+/// процесс перетекание воды, если вода перетекла то возвращаем true
+///
+///
+///-------------------------------------------------------------------------
+bool ACellWater :: waterFluid(const float volume)
+{
+    if (!mWater)
+    {
+        return false;
+    }
+
+    if (mWaterFluid >= 0.0f)
+    {
+        mWaterFluid -= volume;
+        return false;
+    }
+    return true;
 }

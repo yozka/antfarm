@@ -77,13 +77,24 @@ void AWaterOrigin :: update(const float timeSpan)
 	}
 	//
 
+
+    //
+    mFlow -= timeSpan;
+    if (mFlow > 0)
+    {
+        return;
+    }
+    mFlow = mFlowTimeMS;
+    //
+
+
 	const auto size = parent->size();
 	const auto pt = parent->position();// -size * 0.5f;
 
 	auto &water = world->water(pt.x, pt.y);
-
-	const float factor = 1.0f / mFlowTimeMS;
-	water.appendWaterUp(factor * timeSpan);
-
+    if (!water.isWater())
+    {
+        water.makeWater();
+    }
 }
 

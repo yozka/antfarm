@@ -50,7 +50,7 @@ namespace Formicarium
 
 		PWorld mWorld;
 
-		float mSpeedFluidVertical = { 200 }; //скорость распостранения вниз
+		float mSpeedFluidVertical = { 100 }; //скорость распостранения вниз
 
 	};
 	///-------------------------------------------------------------------------
