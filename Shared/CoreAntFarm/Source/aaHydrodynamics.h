@@ -50,8 +50,17 @@ namespace Formicarium
 
 		PWorld mWorld;
 
-		float mSpeedFluidVertical = { 100 }; //скорость распостранения вниз
+		float mSpeedFluidVertical = { 50 }; //скорость распостранения вниз
 
+    private:
+
+
+        void fallWater(const float volume); //падение воды
+        void fallWaterVertical(const float volume); //падение воды
+
+        void pressureCalc();//просчет давления
+
+        bool spreadingWater(); //растекание воды
 	};
 	///-------------------------------------------------------------------------
 

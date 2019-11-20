@@ -42,6 +42,11 @@ void ARender::draw(const Formicarium::PFormicarium &formicarium)
 	const float shift = -scale * 0.5f;
 	QColor colorGround(255, 134, 129);
 	QColor colorWater(96, 172, 247);
+    auto font = painter.font();
+    auto fontSize = font.pointSizeF() * scale / 15.0f;
+    font.setPointSizeF(fontSize);
+    painter.setFont(font);
+
 	for (int y = 0; y < height; y++)
 		for (int x = 0; x < width; x++)
 		{
@@ -60,6 +65,7 @@ void ARender::draw(const Formicarium::PFormicarium &formicarium)
 			{
                 QRectF rect(scale * x + shift, scale * y + shift, scale, scale);
                 painter.fillRect(rect, colorWater);
+                painter.drawText(rect, QString::number(water.waterPressure()), Qt::AlignVCenter | Qt::AlignHCenter);
 			}
 			//
 

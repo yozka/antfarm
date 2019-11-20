@@ -51,6 +51,11 @@ namespace Formicarium
 			return mData[x + y * mSize.x];
 		}
 
+        const T& operator ()(const int x, const int y) const
+        {
+            return mData[x + y * mSize.x];
+        }
+
 
 		const T& data(const TPoint &pt) const
 		{
@@ -68,6 +73,11 @@ namespace Formicarium
 		{
 			return mData[pt.x + pt.y * mSize.x];
 		}
+
+        const T& operator ()(const TPoint &pt) const
+        {
+            return mData[pt.x + pt.y * mSize.x];
+        }
 
 
 	private:

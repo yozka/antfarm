@@ -15,7 +15,7 @@ void roomRect(const Formicarium::PWorld &world, const int x, const int y, const 
 
 }
 
-const int timerSpeed = 100;
+const int timerSpeed = 40;
 
 TestSandbox::TestSandbox(QWidget *parent)
 	: 
@@ -42,6 +42,9 @@ TestSandbox::TestSandbox(QWidget *parent)
 
 	roomRect(mFormicarium->world, 50, 35, 20, 10);
 	roomRect(mFormicarium->world, 30, 60, 10, 30);
+    roomRect(mFormicarium->world, 50, 72, 40, 6);
+    roomRect(mFormicarium->world, 20, 80, 15, 13);
+
 
 	//ху€рим букашек
 	auto actor = std::make_shared<Formicarium::AActor>();
@@ -56,6 +59,16 @@ TestSandbox::TestSandbox(QWidget *parent)
 	aqua->setSize(0.5f);
 	mFormicarium->world->append(aqua);
 
+
+    //вода
+    for (int i = 0; i < 8; i++)
+    {
+        auto &data1 = mFormicarium->world->water(27+i, 60);
+        data1.makeWater();
+
+        auto &data2 = mFormicarium->world->water(50 + i, 70);
+        data2.makeWater();
+    }
 
 	startTimer(timerSpeed);
 }
