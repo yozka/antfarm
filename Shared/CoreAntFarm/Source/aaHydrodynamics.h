@@ -55,12 +55,13 @@ namespace Formicarium
     private:
 
 
-        void fallWater(const float volume); //падение воды
-        void fallWaterVertical(const float volume); //падение воды
-
+        void fallWater(); //падение воды
         void pressureCalc();//просчет давления
-
         bool spreadingWater(); //растекание воды
+        bool spreadingWaterCell(const int x, const int y, const int direct, const AWorld::ALayerGround &ground, AWorld::ALayerWater &water);
+
+
+        void humidityEmitting(const float volume); //пересчет влажности
 	};
 	///-------------------------------------------------------------------------
 

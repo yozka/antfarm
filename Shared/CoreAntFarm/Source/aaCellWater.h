@@ -30,27 +30,26 @@ namespace Formicarium
 
 
 
-        bool isWater() const; //проверка вода есть или нет
-        bool isWaterFluid() const; //проверка вода есть, и она уже закончила движение
+        bool    isWater() const; //проверка вода есть или нет
+        int     waterPressure() const; //возвратим давление воды
 
-        int waterPressure() const; //возвратим давление воды
-
+        bool    isHumidity() const; //есть влажность или нет
+        float   humidityValue() const; //уровень влажности
 
 	public:
 
 		void makeWater(); //установка воды
         void takeWater(); //уберание воды
         
-        bool waterFluid(const float volume); //процесс перетекание воды, если вода перетекла то возвращаем true
         void makePressure(const int pressure); //установка давление воды
 
     private:
 
         bool	mWater          = { false };	//признак того что здесь находится вода
-        float	mWaterFluid     = { 0.0f };		//перетикание воды, время за которое заполнится вода, и его нужно дальшое обрабатывать
         int     mWaterPressure = { 0 };         //давление воды
 
-
+        bool    mHumidity       = { false };    //влажность 
+        float   mHumidityValue  = { 0.0f };     //уровень влажности
 	
 
 

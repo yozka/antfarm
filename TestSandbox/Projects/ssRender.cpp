@@ -40,8 +40,11 @@ void ARender::draw(const Formicarium::PFormicarium &formicarium)
 	//отрисовываем землю
 	//воду
 	const float shift = -scale * 0.5f;
-	QColor colorGround(255, 134, 129);
-	QColor colorWater(96, 172, 247);
+
+    QColor colorGround      (255, 134, 129);
+    QColor colorWater       (96, 172, 247);
+    QColor colorHumidity    (121, 184, 247);
+
     auto font = painter.font();
     auto fontSize = font.pointSizeF() * scale / 15.0f;
     font.setPointSizeF(fontSize);
@@ -65,9 +68,19 @@ void ARender::draw(const Formicarium::PFormicarium &formicarium)
 			{
                 QRectF rect(scale * x + shift, scale * y + shift, scale, scale);
                 painter.fillRect(rect, colorWater);
-                painter.drawText(rect, QString::number(water.waterPressure()), Qt::AlignVCenter | Qt::AlignHCenter);
+                if (mRenderWaterText) painter.drawText(rect, QString::number(water.waterPressure()), Qt::AlignVCenter | Qt::AlignHCenter);
 			}
-			//
+            else
+            //влажность
+            if (water.isHumidity() && mRenderHumidity)
+            {
+                QRectF rect(scale * x + shift, scale * y + shift, scale, scale);
+                const auto value = water.humidityValue();
+                colorHumidity.setAlpha(240 * value);
+                painter.fillRect(rect, colorHumidity);
+                if (mRenderHumidityText) painter.drawText(rect, QString::number((int)(99.0f * value)), Qt::AlignVCenter | Qt::AlignHCenter);
+
+            }
 
 		}
 
@@ -87,7 +100,7 @@ void ARender::draw(const Formicarium::PFormicarium &formicarium)
 		float angle = actor->angle();
 		QRectF rect(- (size.x * 0.5f), - (size.y * 0.5f), size.x, size.y);
 
-		painter.translate(pos.x, pos.y);
+		painter.translate(pos.x + shift, pos.y + shift);
 		painter.rotate(angle);
 		painter.fillRect(rect, colorInsect);
 

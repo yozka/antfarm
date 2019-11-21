@@ -63,9 +63,11 @@ AHydrodynamics :: ~AHydrodynamics()
 void AHydrodynamics::update(const float timeSpan)
 {
     const float volume = (1.0f / mSpeedFluidVertical) * timeSpan;
-    fallWater(volume);
+    fallWater();
 
-    while (true)
+    int count = 10;
+
+    while (count--)
     {
         pressureCalc();
         if (!spreadingWater())
@@ -73,6 +75,8 @@ void AHydrodynamics::update(const float timeSpan)
             break;
         }
     }
+
+    humidityEmitting(volume);
 }
 ///-------------------------------------------------------------------------
 
@@ -88,7 +92,7 @@ void AHydrodynamics::update(const float timeSpan)
 ///
 ///
 ///-------------------------------------------------------------------------
-void AHydrodynamics :: fallWater(const float volume)
+void AHydrodynamics :: fallWater()
 {
     auto &water = mWorld->water;
     const auto &ground = mWorld->ground;
@@ -102,7 +106,7 @@ void AHydrodynamics :: fallWater(const float volume)
         for (int x = 0; x < width; x++)
         {
             auto &waterTop = water(x, y);
-            if (waterTop.waterFluid(volume))
+            if (waterTop.isWater())
             {
                 //в текущей клетке есть вода
                 //которая может перетекать
@@ -125,48 +129,6 @@ void AHydrodynamics :: fallWater(const float volume)
 
 
 
-
-
-///------------------------------------------------------------------------
-///
-///
-///
-/// падение воды 
-///
-///
-///-------------------------------------------------------------------------
-void AHydrodynamics::fallWaterVertical(const float volume)
-{
-    auto &water = mWorld->water;
-    const auto &ground = mWorld->ground;
-
-    const auto width = mWorld->size.x;
-    const auto height = mWorld->size.y;
-
-
-    //просчет падение воды
-    for (int y = height - 2; y >= 0; y--)
-        for (int x = 0; x < width; x++)
-        {
-            auto &waterTop = water(x, y);
-            if (waterTop.waterFluid(volume))
-            {
-                //в текущей клетке есть вода
-                //которая может перетекать
-                const auto &groundBottom = ground(x, y + 1);
-                auto &waterBottom = water(x, y + 1);
-
-                if (!groundBottom.ground && !waterBottom.isWater())
-                {
-                    //внизу нет земли, вода может туда лится
-                    waterTop.takeWater();
-                    waterBottom.makeWater();
-                }
-            }
-        }
-    //
-}
-///-------------------------------------------------------------------------
 
 
 
@@ -194,7 +156,7 @@ void AHydrodynamics :: pressureCalc()
         for (int y = 0; y < height; y++)
         {
             auto &waterCenter = water(x, y);
-            if (waterCenter.isWaterFluid())
+            if (waterCenter.isWater())
             {
                 //вода полностью норм
                 pressure++;
@@ -214,7 +176,7 @@ void AHydrodynamics :: pressureCalc()
         for (int x = 0; x < width; x++)
         {
             auto &waterCenter = water(x, y);
-            if (waterCenter.isWaterFluid())
+            if (waterCenter.isWater())
             {
                 //вода полностью норм
                 pressureMax = std::max(waterCenter.waterPressure(), pressureMax);
@@ -231,7 +193,7 @@ void AHydrodynamics :: pressureCalc()
         for (int x = width - 1; x >= 0; x--)
         {
             auto &waterCenter = water(x, y);
-            if (waterCenter.isWaterFluid())
+            if (waterCenter.isWater())
             {
                 //вода полностью норм
                 pressureMax = std::max(waterCenter.waterPressure(), pressureMax);
@@ -269,73 +231,120 @@ bool AHydrodynamics::spreadingWater()
     const auto width = mWorld->size.x;
     const auto height = mWorld->size.y;
 
-    //растекание воды, с давлением больше 1
+    //растекание воды
     for (int y = height - 2; y > 0; y--)
         for (int x = 1; x < width - 1; x++)
         {
-            auto &waterCenter = water(x, y);
-            if (!waterCenter.isWaterFluid())
-            {
-                continue;
-            }
-
-            if (waterCenter.waterPressure() <= 1)
-            {
-                //сминимальным давлением
-                continue;
-            }
-
-
-            //сниузу есть земля можно растекатся
-            //растекаемся справа
-            auto &waterRight = water(x + 1, y);
-            auto &groundRight = ground(x + 1, y);
-            auto &waterRightBottom = water(x + 1, y + 1);
-            auto &groundRightBottom = ground(x + 1, y + 1);
-            if ((!waterRight.isWater() && !groundRight.ground) &&
-                (waterRightBottom.isWaterFluid() || groundRightBottom.ground)
-                )
-            {
-                waterCenter.takeWater();
-                waterRight.makeWater();
-                process = true;
-            }
-
+            //направо
+            process |= spreadingWaterCell(x, y, +1, ground, water);
         }
 
  
 
-    //растекание воды, с давлением больше 1
     for (int y = height - 2; y > 0; y--)
         for (int x = width - 2; x > 0; x--)
         {
-            auto &waterCenter = water(x, y);
-            if (!waterCenter.isWaterFluid())
-            {
-                continue;
-            }
-
-            if (waterCenter.waterPressure() <= 1)
-            {
-                //сминимальным давлением
-                continue;
-            }
-
-            //слева
-            //сниузу есть земля можно растекатся
-            auto &waterLeft = water(x - 1, y);
-            auto &groundLeft = ground(x - 1, y);
-            auto &waterLeftBottom = water(x - 1, y + 1);
-            auto &groundLeftBottom = ground(x - 1, y + 1);
-            if ((!waterLeft.isWater() && !groundLeft.ground) &&
-                (waterLeftBottom.isWaterFluid() || groundLeftBottom.ground)
-                )
-            {
-                waterCenter.takeWater();
-                waterLeft.makeWater();
-                process = true;
-            }
+            //на лево
+            process |= spreadingWaterCell(x, y, -1, ground, water);
         }
 
     return process;
+}
+///-------------------------------------------------------------------------
+
+
+
+
+
+ ///------------------------------------------------------------------------
+///
+///
+///
+/// растекание воды
+///
+///
+///-------------------------------------------------------------------------
+bool AHydrodynamics::spreadingWaterCell(const int x, const int y, const int direct, const AWorld::ALayerGround &ground, AWorld::ALayerWater &water)
+{
+    auto &waterCenter = water(x, y);
+    if (!waterCenter.isWater())
+    {
+        return false;
+    }
+
+    if (waterCenter.waterPressure() <= 1)
+    {
+        //сминимальным давлением
+        return false;
+    }
+
+    //сниузу есть земля можно растекатся
+    auto &waterSide         = water(x + direct, y);
+    auto &groundSide        = ground(x + direct, y);
+    auto &waterSideBottom   = water(x + direct, y + 1);
+    auto &groundSideBottom  = ground(x + direct, y + 1);
+    
+    if (waterSide.isWater())
+    {
+        return false;
+    }
+        
+    if (groundSide.ground)
+    {
+        return false;
+    }
+
+    
+    if (!waterSideBottom.isWater() && !groundSideBottom.ground)
+    {
+        //сбоку пустота, нет воды и земли
+        //смотрим чтобы снизу небыло пустоты
+        auto &waterBottom = water(x, y + 1);
+        auto &groundBottom = ground(x, y + 1);
+        if (!waterBottom.isWater() && !groundBottom.ground)
+        {
+
+            return false;
+        }
+    }
+
+    waterCenter.takeWater();
+    waterSide.makeWater();
+
+    return true;
+}
+///-------------------------------------------------------------------------
+
+
+
+
+
+ ///------------------------------------------------------------------------
+///
+///
+///
+/// пересчет влажности
+///
+///
+///-------------------------------------------------------------------------
+void AHydrodynamics :: humidityEmitting(const float volume)
+{
+    auto &water = mWorld->water;
+
+    const auto width = mWorld->size.x;
+    const auto height = mWorld->size.y;
+
+    //вода отдает свою влжаность
+    for (int x = 0; x < width; x++)
+    {
+        for (int y = 0; y < height; y++)
+        {
+            auto &waterCenter = water(x, y);
+            if (waterCenter.isWater())
+            {
+
+
+            }
+        }
+    }
 }

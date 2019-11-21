@@ -17,6 +17,8 @@ public:
 	void draw(const Formicarium::PFormicarium &formicarium);
 	
 
+    void setRenderWaterText(const bool value) { mRenderWaterText = value; }
+
 private:
 
 
@@ -28,5 +30,9 @@ private:
 	float mScaleBlock	= { 10.0f };
 
 
+    bool mRenderWaterText       = { false };
+    
+    bool mRenderHumidity        = { false };
+    bool mRenderHumidityText    = { false };
 
 };

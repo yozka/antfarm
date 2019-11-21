@@ -15,14 +15,14 @@ void roomRect(const Formicarium::PWorld &world, const int x, const int y, const 
 
 }
 
-const int timerSpeed = 40;
+const int timerSpeed = 60;
 
 TestSandbox::TestSandbox(QWidget *parent)
 	: 
 		QMainWindow(parent)
 {
 	ui.setupUi(this);
-
+    ui.mainToolBar->addAction(ui.actionWaterPressure);
 
 
 
@@ -56,7 +56,7 @@ TestSandbox::TestSandbox(QWidget *parent)
 	auto aqua = std::make_shared<Formicarium::AActor>();
 	aqua->append(std::make_shared<Formicarium::AWaterOrigin>());
 	aqua->setPosition({ 30, 55 });
-	aqua->setSize(0.5f);
+	aqua->setSize(2.0f);
 	mFormicarium->world->append(aqua);
 
 
@@ -84,5 +84,14 @@ void TestSandbox::timerEvent(QTimerEvent * event)
 
 	mRender.draw(mFormicarium);
 	ui.canvas->setPixmap(mRender.pixmap);
+
+}
+
+
+
+
+void TestSandbox::on_actionWaterPressure_triggered(const bool value)
+{
+    mRender.setRenderWaterText(value);
 
 }

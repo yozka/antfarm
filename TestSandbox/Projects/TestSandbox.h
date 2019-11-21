@@ -32,4 +32,9 @@ private:
 
 	ARender mRender;
 
+
+private slots:
+
+    void on_actionWaterPressure_triggered(const bool value);
+
 };
