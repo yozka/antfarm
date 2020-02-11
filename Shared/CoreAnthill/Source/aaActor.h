@@ -5,7 +5,7 @@
 #include "aaPoint.h"
 #include "aaActorComponent.h"
 
-namespace Formicarium
+namespace Anthill
 {
 
 	///-------------------------------------------------------------------------

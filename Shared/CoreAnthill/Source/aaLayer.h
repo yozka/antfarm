@@ -5,7 +5,7 @@
 #include "aaPoint.h"
 
 
-namespace Formicarium
+namespace Anthill
 {
 
 

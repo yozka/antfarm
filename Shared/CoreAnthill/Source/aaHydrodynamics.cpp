@@ -3,7 +3,7 @@
 
 
 ///-------------------------------------------------------------------------
-using namespace Formicarium;
+using namespace Anthill;
 ///-------------------------------------------------------------------------
 
 
@@ -56,7 +56,7 @@ AHydrodynamics :: ~AHydrodynamics()
 ///
 ///
 ///
-/// Update 
+/// Обновим воду, и влажность 
 ///
 ///
 ///-------------------------------------------------------------------------
@@ -69,14 +69,16 @@ void AHydrodynamics::update(const float timeSpan)
 
     while (count--)
     {
-        pressureCalc();
-        if (!spreadingWater())
+        pressureCalc();//подсчет давления
+        if (!spreadingWater()) //растекание
         {
             break;
         }
     }
 
-    humidityEmitting(volume);
+    //расчет влажности
+    const float volumeHumidity = (1.0f / mSpeedHumidity) * timeSpan;
+    humidityEmitting(volumeHumidity);
 }
 ///-------------------------------------------------------------------------
 
@@ -116,8 +118,7 @@ void AHydrodynamics :: fallWater()
                 if (!groundBottom.ground && !waterBottom.isWater())
                 {
                     //внизу нет земли, вода может туда лится
-                    waterTop.takeWater();
-                    waterBottom.makeWater();
+                    waterTop.moveWaterTo(waterBottom);
                 }
             }
         }
@@ -308,9 +309,7 @@ bool AHydrodynamics::spreadingWaterCell(const int x, const int y, const int dire
         }
     }
 
-    waterCenter.takeWater();
-    waterSide.makeWater();
-
+    waterCenter.moveWaterTo(waterSide);
     return true;
 }
 ///-------------------------------------------------------------------------
@@ -324,27 +323,48 @@ bool AHydrodynamics::spreadingWaterCell(const int x, const int y, const int dire
 ///
 ///
 /// пересчет влажности
-///
+/// перетекание воды во влагу
 ///
 ///-------------------------------------------------------------------------
 void AHydrodynamics :: humidityEmitting(const float volume)
 {
     auto &water = mWorld->water;
 
-    const auto width = mWorld->size.x;
-    const auto height = mWorld->size.y;
+    const auto width = mWorld->size.x - 1;
+    const auto height = mWorld->size.y - 1;
 
     //вода отдает свою влжаность
-    for (int x = 0; x < width; x++)
+    for (int x = 1; x < width; x++)
     {
-        for (int y = 0; y < height; y++)
+        for (int y = 1; y < height; y++)
         {
             auto &waterCenter = water(x, y);
             if (waterCenter.isWater())
             {
-
-
+                humidityMoveTo(waterCenter, water(x - 1, y));
+                humidityMoveTo(waterCenter, water(x + 1, y));
+                humidityMoveTo(waterCenter, water(x    , y - 1));
+                humidityMoveTo(waterCenter, water(x    , y + 1));
             }
         }
     }
+}
+///-------------------------------------------------------------------------
+
+
+
+
+
+ ///------------------------------------------------------------------------
+///
+///
+///
+/// пересчет влажности
+/// устанавливаем влагу из воды
+///
+///-------------------------------------------------------------------------
+void AHydrodynamics::humidityMoveTo(ACellWater &water, ACellWater &waterDest)
+{
+
+
 }

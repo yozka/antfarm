@@ -1,11 +1,11 @@
-#include "aaCellGround.h"
+#include "aaCellTemperature.h"
 ///-------------------------------------------------------------------------
 
 
 
 
 ///-------------------------------------------------------------------------
-using namespace Formicarium;
+using namespace Anthill;
 ///-------------------------------------------------------------------------
 
 
@@ -20,7 +20,7 @@ using namespace Formicarium;
 ///
 ///
 ///-------------------------------------------------------------------------
-ACellGround::ACellGround()
+ACellTemperature::ACellTemperature()
 {
 
 
@@ -42,7 +42,7 @@ ACellGround::ACellGround()
 ///
 ///
 ///-------------------------------------------------------------------------
-ACellGround::~ACellGround()
+ACellTemperature::~ACellTemperature()
 {
 
 

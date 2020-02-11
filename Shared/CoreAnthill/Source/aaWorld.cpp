@@ -1,6 +1,6 @@
 #include "aaWorld.h"
 
-using namespace Formicarium;
+using namespace Anthill;
 ///-------------------------------------------------------------------------
 
 

@@ -4,13 +4,13 @@
 
 #include "aaPoint.h"
 #include "aaLayer.h"
+#include "aaCellWater.h"
 #include "aaCellGround.h"
 #include "aaCellTemperature.h"
-#include "aaCellWater.h"
 #include "aaActor.h"
 
 
-namespace Formicarium
+namespace Anthill
 {
 	///-------------------------------------------------------------------------
 
@@ -34,8 +34,8 @@ namespace Formicarium
 	public:
 	///-------------------------------------------------------------------------
 		using ALayerGround			= ALayer< ACellGround >;
-		using ALayerTemperature		= ALayer< ACellTemperature >;
-		using ALayerWater			= ALayer< ACellWater >;
+        using ALayerWater           = ALayer< ACellWater >;
+        using ALayerTemperature     = ALayer< ACellTemperature >;
 
 	///-------------------------------------------------------------------------
 	public:

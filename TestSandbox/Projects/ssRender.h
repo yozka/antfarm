@@ -1,7 +1,7 @@
 #pragma once
 #include <QPixmap>
 #include <QPainter>
-#include "CoreAntFarm.h"
+#include "CoreAnthill.h"
 
 class ARender
 {
@@ -14,7 +14,7 @@ public:
 
 public:
 
-	void draw(const Formicarium::PFormicarium &formicarium);
+	void draw(const Anthill::PFormicarium &formicarium);
 	
 
     void setRenderWaterText(const bool value) { mRenderWaterText = value; }

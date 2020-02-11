@@ -12,7 +12,7 @@ void ARender::create(const int width, const int height)
 
 
 
-void ARender::draw(const Formicarium::PFormicarium &formicarium)
+void ARender::draw(const Anthill::PFormicarium &formicarium)
 {
 	//
 	const float scale = mScale * mScaleBlock;

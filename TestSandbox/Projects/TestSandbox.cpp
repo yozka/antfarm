@@ -2,7 +2,7 @@
 
 
 
-void roomRect(const Formicarium::PWorld &world, const int x, const int y, const int w, const int h)
+void roomRect(const Anthill::PWorld &world, const int x, const int y, const int w, const int h)
 {
 	int sx = x - w * 0.5f;
 	int sy = y - h * 0.5f;
@@ -29,7 +29,7 @@ TestSandbox::TestSandbox(QWidget *parent)
 	int w = 190;
 	int h = 90;
 
-	mFormicarium = std::make_shared<Formicarium::AFormicarium>(w, h);
+	mFormicarium = std::make_shared<Anthill::AFormicarium>(w, h);
 
 
 	//рандомно создадим формикарий
@@ -47,14 +47,14 @@ TestSandbox::TestSandbox(QWidget *parent)
 
 
 	//ху€рим букашек
-	auto actor = std::make_shared<Formicarium::AActor>();
+	auto actor = std::make_shared<Anthill::AActor>();
 	actor->setPosition({ 50, 35 });
 	mFormicarium->world->append(actor);
 
 
 	//ху€рим источник влаги
-	auto aqua = std::make_shared<Formicarium::AActor>();
-	aqua->append(std::make_shared<Formicarium::AWaterOrigin>());
+	auto aqua = std::make_shared<Anthill::AActor>();
+	aqua->append(std::make_shared<Anthill::AWaterOrigin>());
 	aqua->setPosition({ 30, 55 });
 	aqua->setSize(2.0f);
 	mFormicarium->world->append(aqua);
@@ -63,11 +63,11 @@ TestSandbox::TestSandbox(QWidget *parent)
     //вода
     for (int i = 0; i < 8; i++)
     {
-        auto &data1 = mFormicarium->world->water(27+i, 60);
-        data1.makeWater();
+        auto &data1 = mFormicarium->world->water(27 + i, 60);
+        data1.pourWater();
 
         auto &data2 = mFormicarium->world->water(50 + i, 70);
-        data2.makeWater();
+        data2.pourWater();
     }
 
 	startTimer(timerSpeed);

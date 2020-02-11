@@ -6,7 +6,7 @@
 
 
 ///-------------------------------------------------------------------------
-using namespace Formicarium;
+using namespace Anthill;
 ///-------------------------------------------------------------------------
 
 
@@ -59,13 +59,15 @@ ACellWater::~ACellWater()
 ///
 ///
 /// установка воды
-///
+/// налить воду()
 ///
 ///-------------------------------------------------------------------------
-void ACellWater :: makeWater()
+void ACellWater :: pourWater()
 {
     mWater = true;
     mWaterPressure = 1;
+    mHumidity = false;
+    mHumidityValue = 1.0f;
 }
 ///-------------------------------------------------------------------------
 
@@ -79,15 +81,22 @@ void ACellWater :: makeWater()
  ///------------------------------------------------------------------------
 ///
 ///
-///
+/// переливание воды
 /// 
 ///
 ///
 ///-------------------------------------------------------------------------
-void ACellWater :: takeWater()
+void ACellWater :: moveWaterTo(ACellWater &dest)
 {
+    dest.mWater = true;
+    dest.mWaterPressure = 1;
+    dest.mHumidity = false;
+    dest.mHumidityValue = minmaxBound<float>(0.0f, 1.0f, dest.mHumidityValue + mHumidityValue);
+    
     mWater = false;
     mWaterPressure = 0;
+    mHumidity = false;
+    mHumidityValue = 0.0f;
 }
 ///-------------------------------------------------------------------------
 

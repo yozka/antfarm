@@ -2,7 +2,7 @@
 #include <memory>
 #include "aaActorComponent.h"
 
-namespace Formicarium
+namespace Anthill
 {
 	///-------------------------------------------------------------------------
 

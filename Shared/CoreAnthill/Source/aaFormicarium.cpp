@@ -1,11 +1,9 @@
-#include "aaCellTemperature.h"
-///-------------------------------------------------------------------------
-
+#include "aaFormicarium.h"
 
 
 
 ///-------------------------------------------------------------------------
-using namespace Formicarium;
+using namespace Anthill;
 ///-------------------------------------------------------------------------
 
 
@@ -20,9 +18,14 @@ using namespace Formicarium;
 ///
 ///
 ///-------------------------------------------------------------------------
-ACellTemperature::ACellTemperature()
-{
+AFormicarium :: AFormicarium(const int width, const int height)
+	:
+	world(std::make_shared < Anthill::AWorld > (TPoint(width, height))),
 
+
+	mHydrodynamics(world)
+
+{
 
 
 
@@ -42,8 +45,29 @@ ACellTemperature::ACellTemperature()
 ///
 ///
 ///-------------------------------------------------------------------------
-ACellTemperature::~ACellTemperature()
+AFormicarium :: ~AFormicarium()
 {
 
+
+}
+///-------------------------------------------------------------------------
+
+
+
+
+
+ ///------------------------------------------------------------------------
+///
+///
+///
+/// Update 
+///
+///
+///-------------------------------------------------------------------------
+void AFormicarium :: update(const float timeSpan)
+{
+	world->update(timeSpan);
+
+	mHydrodynamics.update(timeSpan);
 
 }

@@ -5,12 +5,12 @@ VisualStudioVersion = 15.0.28307.852
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestSandbox", "..\Projects\TestSandbox.vcxproj", "{B12702AD-ABFB-343A-A199-8E24837244A3}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CoreAntFarm", "..\..\Shared\CoreAntFarm\CoreAntFarm.vcxitems", "{D44A16C9-0EE1-4028-8C1B-8954A22C759E}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CoreAnthill", "..\..\Shared\CoreAnthill\CoreAnthill.vcxitems", "{D44A16C9-0EE1-4028-8C1B-8954A22C759E}"
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
-		..\..\Shared\CoreAntFarm\CoreAntFarm.vcxitems*{b12702ad-abfb-343a-a199-8e24837244a3}*SharedItemsImports = 4
-		..\..\Shared\CoreAntFarm\CoreAntFarm.vcxitems*{d44a16c9-0ee1-4028-8c1b-8954a22c759e}*SharedItemsImports = 9
+		..\..\Shared\CoreAnthill\CoreAnthill.vcxitems*{b12702ad-abfb-343a-a199-8e24837244a3}*SharedItemsImports = 4
+		..\..\Shared\CoreAnthill\CoreAnthill.vcxitems*{d44a16c9-0ee1-4028-8c1b-8954a22c759e}*SharedItemsImports = 9
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64

@@ -2,7 +2,7 @@
 #include <memory>
 
 
-namespace Formicarium
+namespace Anthill
 {
 	///-------------------------------------------------------------------------
 

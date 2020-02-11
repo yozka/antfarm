@@ -5,7 +5,7 @@
 #include "aaWorld.h"
 #include "aaHydrodynamics.h"
 
-namespace Formicarium
+namespace Anthill
 {
 	///-------------------------------------------------------------------------
 
