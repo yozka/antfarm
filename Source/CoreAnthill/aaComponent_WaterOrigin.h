@@ -1,6 +1,6 @@
 #pragma once
 #include <memory>
-#include "aaActorComponent.h"
+#include "ecs/update/aaComponent_Update.h"
 
 namespace Anthill
 {
@@ -18,14 +18,16 @@ namespace Anthill
 	///
 	///
 	///-------------------------------------------------------------------------
-	class AWaterOrigin
+	class AComponentWaterOrigin
 		: 
-			public AActorComponent
+        public ecs::AComponentUpdate
 	{
+        using super = ecs::AComponentUpdate;
+
 	public:
 
-		AWaterOrigin();
-		~AWaterOrigin() override;
+		AComponentWaterOrigin();
+		~AComponentWaterOrigin() override;
 
 	public:
 

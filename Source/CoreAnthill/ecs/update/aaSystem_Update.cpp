@@ -1,6 +1,7 @@
-#include "aaActorComponent.h"
+#include "aaSystem_Update.h"
 
-using namespace Anthill;
+
+using namespace ecs;
 ///-------------------------------------------------------------------------
 
 
@@ -15,10 +16,10 @@ using namespace Anthill;
 ///
 ///
 ///-------------------------------------------------------------------------
-AActorComponent::AActorComponent()
+ASystemUpdate::ASystemUpdate(const float timeSlow)
+    :
+    mTimeSlow(timeSlow)
 {
-
-
 
 }
 ///-------------------------------------------------------------------------
@@ -35,12 +36,18 @@ AActorComponent::AActorComponent()
 ///
 ///
 ///-------------------------------------------------------------------------
-AActorComponent::~AActorComponent()
+ASystemUpdate::~ASystemUpdate()
 {
 
 
 }
 ///-------------------------------------------------------------------------
+
+
+
+
+
+
 
 
 
@@ -49,31 +56,36 @@ AActorComponent::~AActorComponent()
  ///------------------------------------------------------------------------
 ///
 ///
-/// 
-/// Установка родителя
+///
+/// СњР±РЅРѕРІР»РµРЅРёРµ Р»РѕРіРёРєРё
 ///
 ///
 ///-------------------------------------------------------------------------
-void AActorComponent::setActor(const std::weak_ptr<AActor> &parent)
+void ASystemUpdate::update(const float timeSpan)
 {
-	mParent = parent;
+    updatingSystem();
+
+
+    // РјРґРµР»РµРЅРЅРѕРµ РѕР±РЅРѕРІР»РµРЅРёРµ
+    // СЃСЃР·Р°РґРµСЂР¶РєРѕР№
+    mTime += timeSpan;
+    bool slow = (mTime > mTimeSlow) ? true : false;
+
+
+    for (const auto &obj : components)
+    {
+        obj->update(timeSpan);
+        if (slow)
+        {
+            obj->updateSlow(mTime);
+        }
+    }
+
+
+    if (slow)
+    {
+        mTime -= mTimeSlow;
+    }
 }
 ///-------------------------------------------------------------------------
 
-
-
-
-
- ///------------------------------------------------------------------------
-///
-///
-/// 
-/// Возвратим родителя
-/// внимание вы не должны ударживать родителя, 
-/// и наче он не сожмет удалится корректно
-///
-///-------------------------------------------------------------------------
-std::shared_ptr<AActor> AActorComponent :: actor() const
-{
-	return mParent.lock();
-}

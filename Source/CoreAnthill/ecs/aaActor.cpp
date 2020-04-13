@@ -1,7 +1,9 @@
 #include "aaActor.h"
+#include "aaComponent.h"
+#include "aaContainer.h"
 
 ///-------------------------------------------------------------------------
-using namespace Anthill;
+using namespace ecs;
 ///-------------------------------------------------------------------------
 
 
@@ -37,6 +39,8 @@ AActor::AActor()
 ///-------------------------------------------------------------------------
 AActor::~AActor()
 {
+    clear();
+    sys::caching_system::cleanup(this);
 }
 ///-------------------------------------------------------------------------
 
@@ -45,35 +49,19 @@ AActor::~AActor()
 
 
 
- ///------------------------------------------------------------------------
+
+
+///------------------------------------------------------------------------
 ///
 ///
 ///
-/// установка текущего мира
+/// 
 ///
 ///
 ///-------------------------------------------------------------------------
-void AActor :: setWorld(const std::weak_ptr<AWorld> &world)
+AContainer* AActor::getContainer()const
 {
-	mWorld = world;
-}
-///-------------------------------------------------------------------------
-
-
-
-
- ///------------------------------------------------------------------------
-///
-///
-///
-/// возвратим мир, 
-/// внимание не надо его удерживать!!! не сохроняйте ссылку на мир
-///
-///
-///-------------------------------------------------------------------------
-std::shared_ptr<AWorld> AActor::world()const
-{
-	return mWorld.lock();
+    return mParentContainer;
 }
 ///-------------------------------------------------------------------------
 
@@ -87,16 +75,15 @@ std::shared_ptr<AWorld> AActor::world()const
 ///
 ///
 ///
-/// Текущая позиция
+/// РїСЂРѕРІРµСЂРєР° СЏРІР»СЏРµС‚СЃСЏ Р»Рё РїСЂРёСЃРѕРµРґРµРЅРЅРµРЅС‹Рј РІ РєРѕРЅС‚РµР№РЅРµСЂ
 ///
 ///
 ///-------------------------------------------------------------------------
-void AActor :: setPosition(const TPointF &pt)
+bool AActor::isContainer()const
 {
-	mPosition = pt;
+    return mParentContainer != nullptr;
 }
 ///-------------------------------------------------------------------------
-
 
 
 
@@ -105,31 +92,17 @@ void AActor :: setPosition(const TPointF &pt)
 ///
 ///
 ///
-/// размер актора
+/// РґРѕР°РІР»СЏРµРј СЃРµР±СЏ РІ РєРѕРЅС‚РµР№РЅРµСЂР°
 ///
 ///
 ///-------------------------------------------------------------------------
-void AActor :: setSize(const TPointF &sz)
+void AActor::assignContainer(AContainer *container)
 {
-	mSize = sz;
-}
-///-------------------------------------------------------------------------
-
-
-
-
-
- ///------------------------------------------------------------------------
-///
-///
-///
-/// поворот актора
-///
-///
-///-------------------------------------------------------------------------
-void AActor::setAngle(const float angle)
-{
-	mAngle = angle;
+    mParentContainer = container;
+    for (const auto &component : mComponents)
+    {
+        component->assignContainer();
+    }
 }
 ///-------------------------------------------------------------------------
 
@@ -142,14 +115,56 @@ void AActor::setAngle(const float angle)
 ///
 ///
 ///
-/// добавление компанента
+/// СѓРґР°Р»СЏРµРј СЃРµР±СЏ РІ РєРѕРЅС‚РµР№РЅРµСЂР°
 ///
 ///
 ///-------------------------------------------------------------------------
-void AActor::append(const PActorComponent &component)
+void AActor::rejectContainer()
 {
+    for (const auto &component : mComponents)
+    {
+        component->rejectContainer();
+    }
+    mParentContainer = nullptr;
+}
+///-------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+ ///------------------------------------------------------------------------
+///
+///
+///
+/// РґРѕР±Р°РІР»РµРЅРёРµ РєРѕРјРїР°РЅРµРЅС‚Р°
+///
+///
+///-------------------------------------------------------------------------
+void AActor::append(const std::shared_ptr<AComponent> &component)
+{
+    if (!component)
+    {
+        return;
+    }
+
 	component->setActor(weak_from_this());
 	mComponents.push_back(component);
+
+
+    sys::caching_system::cleanup(this);
+    if (mParentContainer)
+    {
+        mParentContainer->cleanup();
+    }
+    
+    for (const auto &component : mComponents)
+    {
+        component->changeComponents();
+    }
 }
 ///-------------------------------------------------------------------------
 
@@ -161,19 +176,24 @@ void AActor::append(const PActorComponent &component)
 ///
 ///
 ///
-/// удаление компанента
+/// СѓРґР°Р»РµРЅРёРµ РєРѕРјРїР°РЅРµРЅС‚Р°
 ///
 ///
 ///-------------------------------------------------------------------------
-void AActor::remove(const PActorComponent &component)
+void AActor::remove(const std::shared_ptr<AComponent> &component)
 {
 	component->setActor(PActor());
-
 	const auto item = std::find(mComponents.cbegin(), mComponents.cend(), component);
 	if (item != mComponents.cend())
 	{
 		mComponents.erase(item);
 	}
+    sys::caching_system::cleanup(this);
+    sys::caching_system::cleanup(mParentContainer);
+    for (const auto &component : mComponents)
+    {
+        component->changeComponents();
+    }
 }
 ///-------------------------------------------------------------------------
 
@@ -185,14 +205,37 @@ void AActor::remove(const PActorComponent &component)
 ///
 ///
 ///
-/// Обработка компаненнтов
+/// РїРѕР»РЅРѕСЃС‚СЊСЋ РІСЃРµ РїРѕС‡РёСЃС‚РёС‚СЊ
 ///
 ///
 ///-------------------------------------------------------------------------
-void AActor::update(const float timeSpan)
+void AActor::clear()
 {
-	for (const auto &component : mComponents)
-	{
-		component->update(timeSpan);
-	}
+    while (!mComponents.empty())
+    {
+        remove(mComponents.back());
+    }
 }
+///-------------------------------------------------------------------------
+
+
+
+
+
+ ///------------------------------------------------------------------------
+///
+///
+///
+/// РїСЂРѕРІРµСЂРєР°, РїСѓСЃС‚РѕР№ Р°РєС‚РѕСЂ РёР»Рё РЅРµС‚
+///
+///
+///-------------------------------------------------------------------------
+bool AActor::isEmpty() const
+{
+    return mComponents.empty();
+}
+///-------------------------------------------------------------------------
+
+
+
+

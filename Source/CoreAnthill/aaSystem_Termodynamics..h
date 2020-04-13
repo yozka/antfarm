@@ -1,9 +1,8 @@
 #pragma once
 #include <memory>
 
-#include "aaPoint.h"
-#include "aaWorld.h"
-#include "aaHydrodynamics.h"
+#include "ecs/aaSystem.h"
+
 
 namespace Anthill
 {
@@ -17,29 +16,30 @@ namespace Anthill
 	///
 	///
 	///
-	/// Муровейник со всеми штуками
+	/// Система термодинамики
 	///
 	///
 	///-------------------------------------------------------------------------
-	class AFormicarium
+	class ASystemTermodynamics
+        :
+        public ecs::ISystem
 	{
 	public:
 
 		
 
-		AFormicarium(const int width, const int height);
-		virtual ~AFormicarium();
+        ASystemTermodynamics();
+		~ASystemTermodynamics() override;
 
 
 	public:
 
 
-		const PWorld world;
+        void refreshComponents(); //нужно изменить компаненты
 
 
 
 	public:
-
 
 
 
@@ -50,7 +50,7 @@ namespace Anthill
 
 
 
-		AHydrodynamics mHydrodynamics;
+		
 
 
 
@@ -59,7 +59,7 @@ namespace Anthill
 
 
 
-	using PFormicarium = std::shared_ptr< AFormicarium >;
+
 
 
 	///-------------------------------------------------------------------------

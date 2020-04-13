@@ -4,8 +4,11 @@
 #include "ui_TestSandbox.h"
 
 #include <memory>
-#include "CoreAnthill.h"
 #include "ssRender.h"
+
+#include "../../Source/CoreAnthill/CoreAnthill.h"
+
+
 
 class TestSandbox : public QMainWindow
 {
@@ -24,7 +27,7 @@ protected:
 private:
 	Ui::TestSandboxClass ui;
 
-	Anthill::PFormicarium mFormicarium;
+	Anthill::PWorld mWorld;
 
 
 

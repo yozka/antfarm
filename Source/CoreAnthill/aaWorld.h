@@ -3,11 +3,13 @@
 #include <vector>
 
 #include "aaPoint.h"
-#include "aaLayer.h"
-#include "aaCellWater.h"
-#include "aaCellGround.h"
-#include "aaCellTemperature.h"
-#include "aaActor.h"
+
+#include "ecs/aaContainer.h"
+#include "ecs/update/aaSystem_Update.h"
+
+#include "aaSystem_Hydrodynamics.h"
+#include "aaSystem_Termodynamics..h"
+
 
 
 namespace Anthill
@@ -27,20 +29,11 @@ namespace Anthill
 	///
 	///-------------------------------------------------------------------------
 	class AWorld
-		:
-			public std::enable_shared_from_this<AWorld>
-
 	{
-	public:
-	///-------------------------------------------------------------------------
-		using ALayerGround			= ALayer< ACellGround >;
-        using ALayerWater           = ALayer< ACellWater >;
-        using ALayerTemperature     = ALayer< ACellTemperature >;
-
 	///-------------------------------------------------------------------------
 	public:
 
-		AWorld(const TPoint &size);
+		AWorld();
 		virtual ~AWorld();
 
 
@@ -48,12 +41,8 @@ namespace Anthill
 	public:
 
 
-		const TPoint size;
 
-
-		ALayerGround		&ground;		//доступ к земле
-		ALayerTemperature	&temperature;	//распостранение температуры
-		ALayerWater			&water;			//распостранения воды
+        ecs::AContainer     &container;
 
 
 	///-------------------------------------------------------------------------
@@ -68,23 +57,21 @@ namespace Anthill
 	public:
 
 
-		std::vector<PActor>& actors() { return mActors; }
-
-		void append(const PActor &actor); //добавление 
-		void remove(const PActor &actor); //удаление
 
 
-	///-------------------------------------------------------------------------
+
 	///-------------------------------------------------------------------------
 	private:
 
+        ecs::AContainer         mContainer;
 
-		ALayerGround		mGround;	//земля
-		ALayerTemperature	mTemperature;
-		ALayerWater			mWater;
+        //системы
+        ecs::ASystemUpdate      mSystemUpdate;
+        ASystemHydrodynamics    mSystemHydrodynamics;
+        ASystemTermodynamics    mSystemTermodynamics;
 
 
-		std::vector<PActor>	mActors;
+		
 
 	};
 	///-------------------------------------------------------------------------

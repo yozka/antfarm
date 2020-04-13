@@ -15,22 +15,17 @@ using namespace Anthill;
 ///
 ///
 ///-------------------------------------------------------------------------
-AWorld :: AWorld(const TPoint &size)
-	:
-	size			(size),
-	mGround			(size),
-	mTemperature	(size),
-	mWater			(size),
+AWorld :: AWorld()
+    :
+        mSystemUpdate(0.3f),
 
-
-	ground			(mGround),
-	temperature		(mTemperature),
-	water			(mWater)
+        container(mContainer)
 {
 
-	
 
-
+    mContainer.registerSystem(&mSystemUpdate);
+    mContainer.registerSystem(&mSystemHydrodynamics);
+    mContainer.registerSystem(&mSystemTermodynamics);
 }
 ///-------------------------------------------------------------------------
 
@@ -65,10 +60,9 @@ AWorld :: ~AWorld()
 ///-------------------------------------------------------------------------
 void AWorld :: update(const float timeSpan)
 {
-	for (const auto &actor : mActors)
-	{
-		actor->update(timeSpan);
-	}
+    mSystemUpdate.update(timeSpan);
+    mSystemHydrodynamics.update(timeSpan);
+    mSystemTermodynamics.update(timeSpan);
 }
 ///-------------------------------------------------------------------------
 
@@ -85,11 +79,10 @@ void AWorld :: update(const float timeSpan)
 ///
 ///
 ///-------------------------------------------------------------------------
-void AWorld :: append(const PActor &actor)
+/*ecs::PActor AWorld :: append(const ecs::PActor &actor)
 {
-	actor->setWorld(weak_from_this());
-	mActors.push_back(actor);
-}
+    return mContainer.append(actor);
+}*/
 ///-------------------------------------------------------------------------
 
 
@@ -105,15 +98,10 @@ void AWorld :: append(const PActor &actor)
 ///
 ///
 ///-------------------------------------------------------------------------
-void AWorld :: remove(const PActor &actor)
+/*void AWorld :: remove(const ecs::PActor &actor)
 {
-	actor->setWorld(PWorld());
-	const auto item = std::find(mActors.cbegin(), mActors.cend(), actor);
-	if (item != mActors.cend())
-	{
-		mActors.erase(item);
-	}
-}
+    mContainer.remove(actor);
+}*/
 ///-------------------------------------------------------------------------
 
 

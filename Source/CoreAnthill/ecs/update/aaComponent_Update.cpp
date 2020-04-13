@@ -1,9 +1,7 @@
-#include "aaFormicarium.h"
+#include "aaComponent_Update.h"
 
 
-
-///-------------------------------------------------------------------------
-using namespace Anthill;
+using namespace ecs;
 ///-------------------------------------------------------------------------
 
 
@@ -18,16 +16,8 @@ using namespace Anthill;
 ///
 ///
 ///-------------------------------------------------------------------------
-AFormicarium :: AFormicarium(const int width, const int height)
-	:
-	world(std::make_shared < Anthill::AWorld > (TPoint(width, height))),
-
-
-	mHydrodynamics(world)
-
+AComponentUpdate::AComponentUpdate()
 {
-
-
 
 
 }
@@ -45,7 +35,7 @@ AFormicarium :: AFormicarium(const int width, const int height)
 ///
 ///
 ///-------------------------------------------------------------------------
-AFormicarium :: ~AFormicarium()
+AComponentUpdate::~AComponentUpdate()
 {
 
 
@@ -56,18 +46,7 @@ AFormicarium :: ~AFormicarium()
 
 
 
- ///------------------------------------------------------------------------
-///
-///
-///
-/// Update 
-///
-///
-///-------------------------------------------------------------------------
-void AFormicarium :: update(const float timeSpan)
-{
-	world->update(timeSpan);
 
-	mHydrodynamics.update(timeSpan);
 
-}
+
+

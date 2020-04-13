@@ -1,5 +1,4 @@
-#include "aaWaterOrigin.h"
-#include "aaActor.h"
+#include "aaComponent_WaterOrigin.h"
 #include "aaWorld.h"
 #include "aaAlgo.h"
 ///-------------------------------------------------------------------------
@@ -23,7 +22,7 @@ using namespace Anthill;
 ///
 ///
 ///-------------------------------------------------------------------------
-AWaterOrigin::AWaterOrigin()
+AComponentWaterOrigin::AComponentWaterOrigin()
 {
 
 
@@ -45,7 +44,7 @@ AWaterOrigin::AWaterOrigin()
 ///
 ///
 ///-------------------------------------------------------------------------
-AWaterOrigin::~AWaterOrigin()
+AComponentWaterOrigin::~AComponentWaterOrigin()
 {
 
 
@@ -64,8 +63,20 @@ AWaterOrigin::~AWaterOrigin()
 ///
 ///
 ///-------------------------------------------------------------------------
-void AWaterOrigin :: update(const float timeSpan)
+void AComponentWaterOrigin :: update(const float timeSpan)
 {
+    super::update(timeSpan);
+
+    auto container = getContainer();
+    if (!container)
+    {
+        return;
+    }
+
+
+    /* fix
+    auto water = container->findComponent<
+
 	const auto parent = actor();
 	if (!parent)
 	{
@@ -105,5 +116,7 @@ void AWaterOrigin :: update(const float timeSpan)
                 water.pourWater();
             }
         }
+
+        */
 }
 

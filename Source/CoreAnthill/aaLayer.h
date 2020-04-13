@@ -4,7 +4,6 @@
 
 #include "aaPoint.h"
 
-
 namespace Anthill
 {
 

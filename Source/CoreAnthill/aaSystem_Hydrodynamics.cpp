@@ -1,4 +1,4 @@
-#include "aaHydrodynamics.h"
+#include "aaSystem_Hydrodynamics.h"
 #include <algorithm>
 
 
@@ -18,9 +18,7 @@ using namespace Anthill;
 ///
 ///
 ///-------------------------------------------------------------------------
-AHydrodynamics::AHydrodynamics(const PWorld &world)
-	:	
-		mWorld(world)
+ASystemHydrodynamics::ASystemHydrodynamics()
 {
 
 
@@ -41,12 +39,44 @@ AHydrodynamics::AHydrodynamics(const PWorld &world)
 ///
 ///
 ///-------------------------------------------------------------------------
-AHydrodynamics :: ~AHydrodynamics()
+ASystemHydrodynamics :: ~ASystemHydrodynamics()
 {
 
 
 }
 ///-------------------------------------------------------------------------
+
+
+
+
+
+
+
+ ///------------------------------------------------------------------------
+///
+///
+///
+/// нужно изменить компаненты 
+///
+///
+///-------------------------------------------------------------------------
+void ASystemHydrodynamics::refreshComponents()
+{
+    mGround         = container->findComponent<AComponentLayerGround>();
+    mWater          = container->findComponent<AComponentLayerWater>();
+    mTemperature    = container->findComponent<AComponentLayerTemperature>();
+
+
+
+}
+///-------------------------------------------------------------------------
+
+
+
+
+
+
+
 
 
 
@@ -60,7 +90,7 @@ AHydrodynamics :: ~AHydrodynamics()
 ///
 ///
 ///-------------------------------------------------------------------------
-void AHydrodynamics::update(const float timeSpan)
+void ASystemHydrodynamics::update(const float timeSpan)
 {
     const float volume = (1.0f / mSpeedFluidVertical) * timeSpan;
     fallWater();
@@ -94,13 +124,18 @@ void AHydrodynamics::update(const float timeSpan)
 ///
 ///
 ///-------------------------------------------------------------------------
-void AHydrodynamics :: fallWater()
+void ASystemHydrodynamics:: fallWater()
 {
-    auto &water = mWorld->water;
-    const auto &ground = mWorld->ground;
+    if (!mWater || !mGround)
+    {
+        return;
+    }
 
-    const auto width = mWorld->size.x;
-    const auto height = mWorld->size.y;
+    auto &water = *mWater;
+    const auto &ground = *mGround;
+
+    const auto width = water.width();
+    const auto height = water.height();
 
 
     //просчет падение воды
@@ -143,12 +178,17 @@ void AHydrodynamics :: fallWater()
 ///
 ///
 ///-------------------------------------------------------------------------
-void AHydrodynamics :: pressureCalc()
+void ASystemHydrodynamics:: pressureCalc()
 {
-    auto &water = mWorld->water;
+    if (!mWater)
+    {
+        return;
+    }
 
-    const auto width = mWorld->size.x;
-    const auto height = mWorld->size.y;
+    auto &water = *mWater;
+
+    const auto width = water.width();
+    const auto height = water.height();
 
     //просчет водяного давления
     for (int x = 0; x < width; x++)
@@ -223,14 +263,20 @@ void AHydrodynamics :: pressureCalc()
 ///
 ///
 ///-------------------------------------------------------------------------
-bool AHydrodynamics::spreadingWater()
+bool ASystemHydrodynamics::spreadingWater()
 {
-    bool process = false;
-    auto &water = mWorld->water;
-    const auto &ground = mWorld->ground;
+    if (!mWater || !mGround)
+    {
+        return false;
+    }
 
-    const auto width = mWorld->size.x;
-    const auto height = mWorld->size.y;
+
+    bool process = false;
+    auto &water = *mWater;
+    const auto &ground = *mGround;
+
+    const auto width = water.width();
+    const auto height = water.height();
 
     //растекание воды
     for (int y = height - 2; y > 0; y--)
@@ -265,7 +311,7 @@ bool AHydrodynamics::spreadingWater()
 ///
 ///
 ///-------------------------------------------------------------------------
-bool AHydrodynamics::spreadingWaterCell(const int x, const int y, const int direct, const AWorld::ALayerGround &ground, AWorld::ALayerWater &water)
+bool ASystemHydrodynamics::spreadingWaterCell(const int x, const int y, const int direct, const ALayerGround &ground, ALayerWater &water)
 {
     auto &waterCenter = water(x, y);
     if (!waterCenter.isWater())
@@ -326,12 +372,17 @@ bool AHydrodynamics::spreadingWaterCell(const int x, const int y, const int dire
 /// перетекание воды во влагу
 ///
 ///-------------------------------------------------------------------------
-void AHydrodynamics :: humidityEmitting(const float volume)
+void ASystemHydrodynamics :: humidityEmitting(const float volume)
 {
-    auto &water = mWorld->water;
+    if (!mWater)
+    {
+        return;
+    }
 
-    const auto width = mWorld->size.x - 1;
-    const auto height = mWorld->size.y - 1;
+    auto &water = *mWater;
+
+    const auto width = water.width() - 1;
+    const auto height = water.height() - 1;
 
     //вода отдает свою влжаность
     for (int x = 1; x < width; x++)
@@ -363,7 +414,7 @@ void AHydrodynamics :: humidityEmitting(const float volume)
 /// устанавливаем влагу из воды
 ///
 ///-------------------------------------------------------------------------
-void AHydrodynamics::humidityMoveTo(ACellWater &water, ACellWater &waterDest)
+void ASystemHydrodynamics :: humidityMoveTo(ACellWater &water, ACellWater &waterDest)
 {
 
 

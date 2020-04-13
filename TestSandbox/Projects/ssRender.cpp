@@ -12,15 +12,21 @@ void ARender::create(const int width, const int height)
 
 
 
-void ARender::draw(const Anthill::PFormicarium &formicarium)
+void ARender::draw(const Anthill::PWorld &world)
 {
+    
+
 	//
 	const float scale = mScale * mScaleBlock;
 	//
 
+    const auto layerGround      = world->container.findComponent< Anthill::AComponentLayerGround >();
+    const auto layerWater       = world->container.findComponent< Anthill::AComponentLayerWater >();
+    const auto layerTemperature = world->container.findComponent< Anthill::AComponentLayerTemperature >();
+
 	
-	const auto width	= formicarium->world->size.x;
-	const auto height	= formicarium->world->size.y;
+    const auto width = layerGround->width();
+    const auto height = layerGround->height();
 
 	const int pixWidth = width * scale;
 	const int pixHeight = height * scale;
@@ -55,7 +61,7 @@ void ARender::draw(const Anthill::PFormicarium &formicarium)
 		{
 			
 			//земля
-			const auto &ground = formicarium->world->ground.data(x, y);
+			const auto &ground = layerGround->data(x, y);
 			if (ground.ground)
 			{
 				QRectF rect(scale * x + shift, scale * y + shift, scale, scale);
@@ -63,7 +69,7 @@ void ARender::draw(const Anthill::PFormicarium &formicarium)
 			}
 
 			//вода
-			const auto &water = formicarium->world->water(x, y);
+			const auto &water = layerWater->data(x, y);
 			if (water.isWater())
 			{
                 QRectF rect(scale * x + shift, scale * y + shift, scale, scale);
@@ -88,6 +94,7 @@ void ARender::draw(const Anthill::PFormicarium &formicarium)
 	//
 
 
+    /*
 
 	//отрисовываем букашек
 	QColor colorInsect(70, 101, 119);
@@ -108,13 +115,8 @@ void ARender::draw(const Anthill::PFormicarium &formicarium)
 	}
 
 
-
-	/*
-	QPen DarkGray((QColor::QColor(69, 86, 96)), 1);
-	painter.setPen(DarkGray);
-	painter.drawLine(0, 0, 500, 300);
-	*/
-
 	painter.end();
+
+    */
 
 }

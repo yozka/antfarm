@@ -1,9 +1,8 @@
 #pragma once
 #include <memory>
 
-#include "aaWorld.h"
-#include "aaCellWater.h"
-#include "aaCellGround.h"
+#include "ecs/aaSystem.h"
+#include "aaComponent_Layers.h"
 
 namespace Anthill
 {
@@ -21,35 +20,37 @@ namespace Anthill
 	///
 	///
 	///-------------------------------------------------------------------------
-	class AHydrodynamics
+	class ASystemHydrodynamics
+        :
+            public ecs::ISystem
 	{
 	public:
 
 
 
-		AHydrodynamics(const PWorld &world);
-		virtual ~AHydrodynamics();
+        ASystemHydrodynamics();
+		~ASystemHydrodynamics() override;
 
 
 	public:
 
-
+        void refreshComponents(); //нужно изменить компаненты
 	
 
-
-	public:
-
-
-
+    public:
 
 		void update(const float timeSpan);
 
 
 	private:
 
+        PComponentLayerGround       mGround;
+        PComponentLayerWater        mWater;
+        PComponentLayerTemperature  mTemperature;
 
 
-		PWorld mWorld;
+    private:
+
 
 		float mSpeedFluidVertical   = { 50 }; //скорость распостранения вниз
         float mSpeedHumidity        = { 100 }; //скорость распостранения влажности
@@ -60,7 +61,7 @@ namespace Anthill
         void fallWater(); //падение воды
         void pressureCalc();//просчет давления
         bool spreadingWater(); //растекание воды
-        bool spreadingWaterCell(const int x, const int y, const int direct, const AWorld::ALayerGround &ground, AWorld::ALayerWater &water);
+        bool spreadingWaterCell(const int x, const int y, const int direct, const ALayerGround &ground, ALayerWater &water);
 
 
         //влажность
@@ -71,7 +72,7 @@ namespace Anthill
 
 
 
-	using PHydrodynamics = std::shared_ptr< AHydrodynamics >;
+	
 
 
 	///-------------------------------------------------------------------------

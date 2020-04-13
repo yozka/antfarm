@@ -1,11 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{D9D6E242-F8AF-46E4-B9FD-80ECBC20BA3E}</UniqueIdentifier>
-      <Extensions>qrc;*</Extensions>
-      <ParseFiles>false</ParseFiles>
-    </Filter>
     <Filter Include="Source">
       <UniqueIdentifier>{99ed5689-26de-40c5-b5e6-8c4ce34798e7}</UniqueIdentifier>
     </Filter>
@@ -18,15 +13,74 @@
     <Filter Include="Source\Render">
       <UniqueIdentifier>{3c76f315-c006-4d68-ad96-b2df635a75e7}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
-      <ParseFiles>true</ParseFiles>
+    <Filter Include="Source\CoreAnthill">
+      <UniqueIdentifier>{bab776c2-714e-456a-b91b-5b760bc44b2d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-      <ParseFiles>true</ParseFiles>
+    <Filter Include="Source\CoreAnthill\Utils">
+      <UniqueIdentifier>{c5abf5b2-ad27-413d-b1c7-7bb01197e502}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\CoreAnthill\Utils\Point">
+      <UniqueIdentifier>{26400d47-4c01-4ef5-9161-613730a881a6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\CoreAnthill\Utils\Algo">
+      <UniqueIdentifier>{bd6bfce1-10a6-4276-aeb7-f80247f67516}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\CoreAnthill\World">
+      <UniqueIdentifier>{f17c4c05-db53-47ed-8286-2e049a8efc73}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\CoreAnthill\!ECS">
+      <UniqueIdentifier>{ddfd8cb4-355e-413c-8849-e5fea37e2c92}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\CoreAnthill\!ECS\Actor">
+      <UniqueIdentifier>{4ad91553-6823-4868-8243-90ee368616b2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\CoreAnthill\!ECS\Caching">
+      <UniqueIdentifier>{692f3952-a004-41a4-b939-ec66b68f7020}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\CoreAnthill\!ECS\Component">
+      <UniqueIdentifier>{1f80113e-5151-446c-8790-955bd411f15e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\CoreAnthill\!ECS\Container">
+      <UniqueIdentifier>{ac43738a-6b2e-4941-b6cc-258af5307045}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\CoreAnthill\!ECS\System">
+      <UniqueIdentifier>{ffb2aeff-f105-402c-b0b6-9cc43c154407}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\CoreAnthill\!ECS\System_Update">
+      <UniqueIdentifier>{b1447183-0f45-4a03-8974-65b7355724f0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\CoreAnthill\Components">
+      <UniqueIdentifier>{515ad155-60e2-4931-835c-ba59b9b18975}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\CoreAnthill\Components\Environment">
+      <UniqueIdentifier>{c718c575-7587-4fcb-9897-186cef2062df}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\CoreAnthill\Components\Environment\WaterOrigin">
+      <UniqueIdentifier>{a137788b-d254-4b9b-992b-b0e36d72de05}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\CoreAnthill\Systems">
+      <UniqueIdentifier>{f16f49b9-e2cf-4016-8310-9aa05abc9a08}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\CoreAnthill\Systems\System_Hydrodynamics">
+      <UniqueIdentifier>{5971b29f-82d4-4e56-8fd2-cf76b83c3764}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\CoreAnthill\Components\Layers">
+      <UniqueIdentifier>{c17ca4c3-d219-4e11-a000-e21c80f0b5ac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\CoreAnthill\Components\Layers\CellTemperature">
+      <UniqueIdentifier>{a5bb44eb-8d7c-4fb9-bbe4-2b7c8618ee13}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\CoreAnthill\Components\Layers\CellGround">
+      <UniqueIdentifier>{732dc30e-80aa-4fdf-a8d0-95556eda6727}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\CoreAnthill\Components\Layers\CellWater">
+      <UniqueIdentifier>{20848e3d-0054-490c-a701-e354dc87a300}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\CoreAnthill\Systems\System_Termodynamics">
+      <UniqueIdentifier>{8aeef3b4-a863-435b-a41a-da1c64bc8be9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\CoreAnthill\Systems\System_Physics">
+      <UniqueIdentifier>{2fc83a66-2b75-4925-b7de-7a02b60d7b3e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -38,6 +92,45 @@
     </ClCompile>
     <ClCompile Include="ssRender.cpp">
       <Filter>Source\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\CoreAnthill\ecs\aaActor.cpp">
+      <Filter>Source\CoreAnthill\!ECS\Actor</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\CoreAnthill\ecs\aaComponent.cpp">
+      <Filter>Source\CoreAnthill\!ECS\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\CoreAnthill\ecs\aaContainer.cpp">
+      <Filter>Source\CoreAnthill\!ECS\Container</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\CoreAnthill\ecs\aaSystem.cpp">
+      <Filter>Source\CoreAnthill\!ECS\System</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\CoreAnthill\ecs\update\aaComponent_Update.cpp">
+      <Filter>Source\CoreAnthill\!ECS\System_Update</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\CoreAnthill\ecs\update\aaSystem_Update.cpp">
+      <Filter>Source\CoreAnthill\!ECS\System_Update</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\CoreAnthill\aaWorld.cpp">
+      <Filter>Source\CoreAnthill\World</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\CoreAnthill\aaCellWater.cpp">
+      <Filter>Source\CoreAnthill\Components\Layers\CellWater</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\CoreAnthill\aaCellGround.cpp">
+      <Filter>Source\CoreAnthill\Components\Layers\CellGround</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\CoreAnthill\aaCellTemperature.cpp">
+      <Filter>Source\CoreAnthill\Components\Layers\CellTemperature</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\CoreAnthill\aaComponent_WaterOrigin.cpp">
+      <Filter>Source\CoreAnthill\Components\Environment\WaterOrigin</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\CoreAnthill\aaSystem_Hydrodynamics.cpp">
+      <Filter>Source\CoreAnthill\Systems\System_Hydrodynamics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\CoreAnthill\aaSystem_Termodynamics.cpp">
+      <Filter>Source\CoreAnthill\Systems\System_Termodynamics</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -58,6 +151,66 @@
   <ItemGroup>
     <ClInclude Include="ssRender.h">
       <Filter>Source\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\CoreAnthill\ecs\aaActor.h">
+      <Filter>Source\CoreAnthill\!ECS\Actor</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\CoreAnthill\ecs\aaCaching.h">
+      <Filter>Source\CoreAnthill\!ECS\Caching</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\CoreAnthill\ecs\aaComponent.h">
+      <Filter>Source\CoreAnthill\!ECS\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\CoreAnthill\ecs\aaComponentHandler.h">
+      <Filter>Source\CoreAnthill\!ECS\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\CoreAnthill\ecs\aaContainer.h">
+      <Filter>Source\CoreAnthill\!ECS\Container</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\CoreAnthill\ecs\aaSystem.h">
+      <Filter>Source\CoreAnthill\!ECS\System</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\CoreAnthill\ecs\update\aaComponent_Update.h">
+      <Filter>Source\CoreAnthill\!ECS\System_Update</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\CoreAnthill\ecs\update\aaSystem_Update.h">
+      <Filter>Source\CoreAnthill\!ECS\System_Update</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\CoreAnthill\CoreAnthill.h">
+      <Filter>Source\CoreAnthill</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\CoreAnthill\aaAlgo.h">
+      <Filter>Source\CoreAnthill\Utils\Algo</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\CoreAnthill\aaPoint.h">
+      <Filter>Source\CoreAnthill\Utils\Point</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\CoreAnthill\aaWorld.h">
+      <Filter>Source\CoreAnthill\World</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\CoreAnthill\aaLayer.h">
+      <Filter>Source\CoreAnthill\Components\Layers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\CoreAnthill\aaCellWater.h">
+      <Filter>Source\CoreAnthill\Components\Layers\CellWater</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\CoreAnthill\aaCellGround.h">
+      <Filter>Source\CoreAnthill\Components\Layers\CellGround</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\CoreAnthill\aaCellTemperature.h">
+      <Filter>Source\CoreAnthill\Components\Layers\CellTemperature</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\CoreAnthill\aaComponent_WaterOrigin.h">
+      <Filter>Source\CoreAnthill\Components\Environment\WaterOrigin</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\CoreAnthill\aaComponent_Layers.h">
+      <Filter>Source\CoreAnthill\Components\Layers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\CoreAnthill\aaSystem_Hydrodynamics.h">
+      <Filter>Source\CoreAnthill\Systems\System_Hydrodynamics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\CoreAnthill\aaSystem_Termodynamics..h">
+      <Filter>Source\CoreAnthill\Systems\System_Termodynamics</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

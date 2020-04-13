@@ -1,7 +1,7 @@
 #include "TestSandbox.h"
 
 
-
+/*
 void roomRect(const Anthill::PWorld &world, const int x, const int y, const int w, const int h)
 {
 	int sx = x - w * 0.5f;
@@ -14,6 +14,7 @@ void roomRect(const Anthill::PWorld &world, const int x, const int y, const int 
 		}
 
 }
+*/
 
 const int timerSpeed = 60;
 
@@ -26,12 +27,25 @@ TestSandbox::TestSandbox(QWidget *parent)
 
 
 
-	int w = 190;
-	int h = 90;
-
-	mFormicarium = std::make_shared<Anthill::AFormicarium>(w, h);
+    const TPoint size = { 190, 90 };
 
 
+
+    mWorld = std::make_shared<Anthill::AWorld>();
+
+
+    auto ground = mWorld->container.append(std::make_shared<ecs::AActor>());
+    ground->append(std::make_shared < Anthill::AComponentLayerGround > (size));
+    ground->append(std::make_shared < Anthill::AComponentLayerWater > (size));
+    ground->append(std::make_shared < Anthill::AComponentLayerTemperature > (size));
+    
+
+    
+
+
+
+
+    /* fix
 	//рандомно создадим формикарий
 	for (int y = 0; y < h; y++)
 		for (int x = 0; x < w; x++)
@@ -54,7 +68,7 @@ TestSandbox::TestSandbox(QWidget *parent)
 
 	//ху€рим источник влаги
 	auto aqua = std::make_shared<Anthill::AActor>();
-	aqua->append(std::make_shared<Anthill::AWaterOrigin>());
+	aqua->append(std::make_shared<Anthill::AComponentWaterOrigin>());
 	aqua->setPosition({ 30, 55 });
 	aqua->setSize(2.0f);
 	mFormicarium->world->append(aqua);
@@ -69,6 +83,8 @@ TestSandbox::TestSandbox(QWidget *parent)
         auto &data2 = mFormicarium->world->water(50 + i, 70);
         data2.pourWater();
     }
+    */
+
 
 	startTimer(timerSpeed);
 }
@@ -80,9 +96,9 @@ TestSandbox::TestSandbox(QWidget *parent)
 
 void TestSandbox::timerEvent(QTimerEvent * event)
 {
-	mFormicarium->update(timerSpeed);
+	mWorld->update(timerSpeed / 1000.0f);
 
-	mRender.draw(mFormicarium);
+	mRender.draw(mWorld);
 	ui.canvas->setPixmap(mRender.pixmap);
 
 }
