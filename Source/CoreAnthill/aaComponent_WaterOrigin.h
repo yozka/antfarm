@@ -36,8 +36,8 @@ namespace Anthill
 
 	private:
 
-		float mFlowTimeMS = { 200 }; //время заполнения в мс
-        float mFlow = { 0 };
+		float mFlowTimeMS = { 0.2f }; //время заполнения в сек
+        float mFlow = { 0.0f };
 
 	};
 

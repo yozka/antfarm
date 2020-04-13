@@ -30,7 +30,7 @@ namespace Anthill
 
 
 
-        bool    isWater() const; //проверка вода есть или нет
+        bool const &isWater() const; //проверка вода есть или нет
         int     waterPressure() const; //возвратим давление воды
 
         bool    isHumidity() const; //есть влажность или нет

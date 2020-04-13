@@ -5,6 +5,8 @@
 	template <typename T>
 	struct Point
 	{
+        static Point<T> Zero;
+
 
 		////////////////////////////////////////////////////////////
 		T x = { default(T) };
@@ -148,3 +150,9 @@
 
 using TPoint	= Point<int>;
 using TPointF	= Point<float>;
+
+
+/*
+constexpr TPoint::Zero = TPoint(0,0);
+constexpr TPointF::Zero = TPointF(0,0);
+*/

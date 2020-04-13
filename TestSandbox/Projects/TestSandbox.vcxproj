@@ -78,7 +78,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
-      <DebugInformationFormat />
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
       <LanguageStandard>stdcpp17</LanguageStandard>
@@ -86,13 +86,14 @@
     <Link>
       <SubSystem>Windows</SubSystem>
       <OutputFile>$(OutDir)\$(ProjectName).exe</OutputFile>
-      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Source\CoreAnthill\aaCellGround.cpp" />
     <ClCompile Include="..\..\Source\CoreAnthill\aaCellTemperature.cpp" />
     <ClCompile Include="..\..\Source\CoreAnthill\aaCellWater.cpp" />
+    <ClCompile Include="..\..\Source\CoreAnthill\aaComponent_GeometryData.cpp" />
     <ClCompile Include="..\..\Source\CoreAnthill\aaSystem_Termodynamics.cpp" />
     <ClCompile Include="..\..\Source\CoreAnthill\aaSystem_Hydrodynamics.cpp" />
     <ClCompile Include="..\..\Source\CoreAnthill\aaComponent_WaterOrigin.cpp" />
@@ -121,6 +122,8 @@
     <ClInclude Include="..\..\Source\CoreAnthill\aaCellGround.h" />
     <ClInclude Include="..\..\Source\CoreAnthill\aaCellTemperature.h" />
     <ClInclude Include="..\..\Source\CoreAnthill\aaCellWater.h" />
+    <ClInclude Include="..\..\Source\CoreAnthill\aaComponent_Geometry.h" />
+    <ClInclude Include="..\..\Source\CoreAnthill\aaComponent_GeometryData.h" />
     <ClInclude Include="..\..\Source\CoreAnthill\aaComponent_Layers.h" />
     <ClInclude Include="..\..\Source\CoreAnthill\aaSystem_Termodynamics..h" />
     <ClInclude Include="..\..\Source\CoreAnthill\aaSystem_Hydrodynamics.h" />

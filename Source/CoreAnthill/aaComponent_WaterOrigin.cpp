@@ -1,6 +1,10 @@
 #include "aaComponent_WaterOrigin.h"
-#include "aaWorld.h"
+#include "aaComponent_Layers.h"
+#include "aaComponent_Geometry.h"
+
 #include "aaAlgo.h"
+
+#include "ecs/aaContainer.h"
 ///-------------------------------------------------------------------------
 
 
@@ -74,20 +78,14 @@ void AComponentWaterOrigin :: update(const float timeSpan)
     }
 
 
-    /* fix
-    auto water = container->findComponent<
+    const auto water = container->findComponent<AComponentLayerWater>();
+    const auto geometry = findComponent<AComponentGeometry>();
 
-	const auto parent = actor();
-	if (!parent)
-	{
-		return;
-	}
-	const auto world = parent->world();
-	if (!world)
-	{
-		return;
-	}
-	//
+    if (!water || !geometry)
+    {
+        return;
+    }
+
 
 
     //
@@ -99,24 +97,23 @@ void AComponentWaterOrigin :: update(const float timeSpan)
     mFlow = mFlowTimeMS;
     //
 
-    const int width = world->size.x;
-    const int height = world->size.y;
+    const int width = water->width();
+    const int height = water->height();
 
-	const auto size = parent->size();
-	const auto pt = parent->position() - size * 0.5f;
+	const auto size = geometry->boundSize();
+	const auto pt = geometry->position() - size * 0.5f;
 
     for (float y = pt.y; y < pt.y + size.y; y += 1.0f)
         for (float x = pt.x; x < pt.x + size.x; x += 1.0f)
         {
             const int ix = minmaxBound<int>(0, width - 1, round(x));
             const int iy = minmaxBound<int>(0, height - 1, round(y));
-            auto &water = world->water(ix, iy);
-            if (!water.isWater())
+            auto &cell = water->data(ix, iy);
+            if (!cell.isWater())
             {
-                water.pourWater();
+                cell.pourWater();
             }
         }
 
-        */
 }
 

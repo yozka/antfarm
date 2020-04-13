@@ -41,6 +41,16 @@ namespace ecs
 
         AContainer *container = { nullptr };
         bool changed = { false }; //данные поменялись
+
+
+        void updatingSystem() //обновление системы
+        {
+            if (changed)
+            {
+                refreshComponents();
+                changed = false;
+            }
+        }
     };
     ///-------------------------------------------------------------------------
 
@@ -88,13 +98,6 @@ namespace ecs
             changed = false;
         }
 
-        void updatingSystem() //обновление системы
-        {
-            if (changed)
-            {
-                refreshComponents();
-            }
-        }
 
     };
     ///-------------------------------------------------------------------------

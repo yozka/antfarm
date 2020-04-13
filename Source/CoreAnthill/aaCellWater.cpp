@@ -117,7 +117,7 @@ void ACellWater :: moveWaterTo(ACellWater &dest)
 ///
 ///
 ///-------------------------------------------------------------------------
-bool ACellWater :: isWater() const
+bool const & ACellWater :: isWater() const
 {
     return mWater;
 }

@@ -39,10 +39,15 @@ TestSandbox::TestSandbox(QWidget *parent)
     ground->append(std::make_shared < Anthill::AComponentLayerWater > (size));
     ground->append(std::make_shared < Anthill::AComponentLayerTemperature > (size));
     
-
+   
     
 
 
+
+    //ху€рим источник влаги
+    auto aqua = mWorld->container.append(std::make_shared<ecs::AActor>());
+    aqua->append(std::make_shared<Anthill::AComponentWaterOrigin>());
+    aqua->append(std::make_shared<Anthill::AComponentGeometryData>(TPointF( 30, 55 ), TPointF(2, 2)));
 
 
     /* fix
@@ -66,12 +71,7 @@ TestSandbox::TestSandbox(QWidget *parent)
 	mFormicarium->world->append(actor);
 
 
-	//ху€рим источник влаги
-	auto aqua = std::make_shared<Anthill::AActor>();
-	aqua->append(std::make_shared<Anthill::AComponentWaterOrigin>());
-	aqua->setPosition({ 30, 55 });
-	aqua->setSize(2.0f);
-	mFormicarium->world->append(aqua);
+
 
 
     //вода

@@ -82,6 +82,9 @@
     <Filter Include="Source\CoreAnthill\Systems\System_Physics">
       <UniqueIdentifier>{2fc83a66-2b75-4925-b7de-7a02b60d7b3e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\CoreAnthill\Components\Geometry">
+      <UniqueIdentifier>{8bbdf29f-5a81-4420-b577-53524a8f0c0f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -131,6 +134,9 @@
     </ClCompile>
     <ClCompile Include="..\..\Source\CoreAnthill\aaSystem_Termodynamics.cpp">
       <Filter>Source\CoreAnthill\Systems\System_Termodynamics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\CoreAnthill\aaComponent_GeometryData.cpp">
+      <Filter>Source\CoreAnthill\Components\Geometry</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -211,6 +217,12 @@
     </ClInclude>
     <ClInclude Include="..\..\Source\CoreAnthill\aaSystem_Termodynamics..h">
       <Filter>Source\CoreAnthill\Systems\System_Termodynamics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\CoreAnthill\aaComponent_Geometry.h">
+      <Filter>Source\CoreAnthill\Components\Geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\CoreAnthill\aaComponent_GeometryData.h">
+      <Filter>Source\CoreAnthill\Components\Geometry</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

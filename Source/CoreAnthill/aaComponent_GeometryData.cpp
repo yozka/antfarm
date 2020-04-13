@@ -1,4 +1,6 @@
-#include "aaSystem_Termodynamics..h"
+#include "aaComponent_GeometryData.h"
+///-------------------------------------------------------------------------
+
 
 
 
@@ -18,28 +20,11 @@ using namespace Anthill;
 ///
 ///
 ///-------------------------------------------------------------------------
-ASystemTermodynamics::ASystemTermodynamics()
-{
-
-
-
-
-}
-///-------------------------------------------------------------------------
-
-
-
-
-
- ///------------------------------------------------------------------------
-///
-///
-///
-/// Destructor
-///
-///
-///-------------------------------------------------------------------------
-ASystemTermodynamics :: ~ASystemTermodynamics()
+AComponentGeometryData::AComponentGeometryData(const TPointF &position, const TPointF &boundSize, const float angle)
+    :
+        mPosition(position),
+        mBoundSize(boundSize),
+        mAngle(angle)
 {
 
 
@@ -50,18 +35,20 @@ ASystemTermodynamics :: ~ASystemTermodynamics()
 
 
 
+
+
+
  ///------------------------------------------------------------------------
 ///
 ///
 ///
-/// нужно изменить компаненты 
+/// центральная позиция объекта
 ///
 ///
 ///-------------------------------------------------------------------------
-void ASystemTermodynamics::refreshComponents()
+TPointF AComponentGeometryData :: position() const
 {
-
-
+    return mPosition;
 }
 ///-------------------------------------------------------------------------
 
@@ -69,16 +56,39 @@ void ASystemTermodynamics::refreshComponents()
 
 
 
+
+
+
  ///------------------------------------------------------------------------
 ///
 ///
 ///
-/// Update 
+/// занимающий размер объекта
 ///
 ///
 ///-------------------------------------------------------------------------
-void ASystemTermodynamics:: update(const float timeSpan)
+TPointF AComponentGeometryData::boundSize() const
 {
-    updatingSystem();
+    return mBoundSize;
+}
+///-------------------------------------------------------------------------
 
+
+
+
+
+
+
+
+ ///------------------------------------------------------------------------
+///
+///
+///
+/// поворот объекта
+///
+///
+///-------------------------------------------------------------------------
+float AComponentGeometryData::angle() const
+{
+    return mAngle;
 }

@@ -92,6 +92,8 @@ void ASystemHydrodynamics::refreshComponents()
 ///-------------------------------------------------------------------------
 void ASystemHydrodynamics::update(const float timeSpan)
 {
+    updatingSystem();
+
     const float volume = (1.0f / mSpeedFluidVertical) * timeSpan;
     fallWater();
 

@@ -52,8 +52,8 @@ namespace Anthill
     private:
 
 
-		float mSpeedFluidVertical   = { 50 }; //скорость распостранения вниз
-        float mSpeedHumidity        = { 100 }; //скорость распостранения влажности
+		float mSpeedFluidVertical   = { 0.05f }; //скорость распостранения вниз
+        float mSpeedHumidity        = { 0.10f }; //скорость распостранения влажности
     private:
 
 
